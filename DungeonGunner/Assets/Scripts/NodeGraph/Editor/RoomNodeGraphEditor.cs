@@ -7,6 +7,7 @@ using UnityEditor.Callbacks;
 public class RoomNodeGraphEditor : EditorWindow
 {
     private GUIStyle roomNodeStyle;
+    private GUIStyle selectedRoomNodeStyle;
     private static RoomNodeGraphSO currentRoomNodeGraph;
     private RoomNodeSO currentRoomNode = null;
     private RoomNodeTypeListSO roomNodeTypeList;
@@ -29,6 +30,9 @@ public class RoomNodeGraphEditor : EditorWindow
 
     private void OnEnable()
     {
+        //Subscribe to the inspector selection changed event
+        Selection.selectionChanged += InspectorSelectionChanged;
+        
         //Define node layout style
         roomNodeStyle = new GUIStyle();
         roomNodeStyle.normal.background = EditorGUIUtility.Load("node1") as Texture2D;
@@ -36,8 +40,21 @@ public class RoomNodeGraphEditor : EditorWindow
         roomNodeStyle.padding = new RectOffset(nodePadding, nodePadding, nodePadding, nodePadding);
         roomNodeStyle.border = new RectOffset(nodeBorder, nodeBorder, nodeBorder, nodeBorder);
 
+        //Define selected layout style
+        selectedRoomNodeStyle = new GUIStyle();
+        selectedRoomNodeStyle.normal.background = EditorGUIUtility.Load("node1 on") as Texture2D;
+        selectedRoomNodeStyle.normal.textColor = Color.white;
+        selectedRoomNodeStyle.padding = new RectOffset(nodePadding, nodePadding, nodePadding, nodePadding);
+        selectedRoomNodeStyle.border = new RectOffset(nodeBorder, nodeBorder, nodeBorder, nodeBorder);
+
         // Load Room Node Types
         roomNodeTypeList = GameResources.Instance.roomNodetypeList;
+    }
+
+    private void OnDisable()
+    {
+        //unsubscribe from inspector selection changed event
+        Selection.selectionChanged -= InspectorSelectionChanged;
     }
 
     /// <summary>
@@ -147,6 +164,11 @@ public class RoomNodeGraphEditor : EditorWindow
         {
             ShowContextMenu(currentEvent.mousePosition);
         }
+        else if(currentEvent.button == 0)
+        {
+            ClearLineDrag();
+            ClearAllSelectedRoomNodes();
+        }
     }
 
     /// <summary>
@@ -219,6 +241,13 @@ public class RoomNodeGraphEditor : EditorWindow
     /// </summary>
     public void CreateRoomNode(object mousePositionObject)
     {
+
+        //if current room node graph is empty, create entrance room node
+        if(currentRoomNodeGraph.roomNodeList.Count == 0)
+        {
+            CreateRoomNode(new Vector2(200, 200), roomNodeTypeList.list.Find(x => x.isEntrance));
+        }
+
         CreateRoomNode(mousePositionObject, roomNodeTypeList.list.Find(x => x.isNone));
     }
 
@@ -255,7 +284,14 @@ public class RoomNodeGraphEditor : EditorWindow
         //Loop through all the nodes and draw them
         foreach(RoomNodeSO roomNode in currentRoomNodeGraph.roomNodeList)
         {
-            roomNode.Draw(roomNodeStyle);
+            if (roomNode.isSelected)
+            {
+                roomNode.Draw(selectedRoomNodeStyle);
+            }
+            else
+            {
+                roomNode.Draw(roomNodeStyle);
+            }
         }
 
         GUI.changed = true; 
@@ -284,6 +320,19 @@ public class RoomNodeGraphEditor : EditorWindow
         currentRoomNodeGraph.roomNodeToDrawLineFrom = null;
         currentRoomNodeGraph.linePosition = Vector2.zero;
         GUI.changed = true;
+    }
+
+    private void ClearAllSelectedRoomNodes()
+    {
+        foreach (RoomNodeSO roomNodeSO in currentRoomNodeGraph.roomNodeList)
+        {
+            if (roomNodeSO.isSelected)
+            {
+                roomNodeSO.isSelected = false;
+
+                GUI.changed = true;
+            }
+        }
     }
 
     /// <summary>
@@ -341,5 +390,19 @@ public class RoomNodeGraphEditor : EditorWindow
 
 
         GUI.changed = true;
+    }
+
+    /// <summary>
+    /// Selection changed in editor
+    /// </summary>
+    private void InspectorSelectionChanged()
+    {
+        RoomNodeGraphSO roomNodeGraph = Selection.activeObject as RoomNodeGraphSO;
+
+        if (roomNodeGraph != null)
+        {
+            currentRoomNodeGraph = roomNodeGraph;
+            GUI.changed = true;
+        }
     }
 }
