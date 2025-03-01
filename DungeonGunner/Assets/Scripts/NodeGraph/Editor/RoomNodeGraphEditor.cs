@@ -12,6 +12,9 @@ public class RoomNodeGraphEditor : EditorWindow
     private RoomNodeSO currentRoomNode = null;
     private RoomNodeTypeListSO roomNodeTypeList;
 
+    private Vector2 graphOffset;
+    private Vector2 graphDrag;
+
     //Node Layout Values
     private const float nodeWidth = 160f;
     private const float nodeHeight = 75f;
@@ -21,6 +24,10 @@ public class RoomNodeGraphEditor : EditorWindow
     //Connecting line width
     private float connectingLineWidth = 3f;
     private float connectingArrowSize = 6f;
+
+    //grid values
+    private const float gridSizeLarge = 100f;
+    private const float gridSizeSmall = 20f;
 
     [MenuItem("Room Node Graph Editor", menuItem = "Window/Dungeon Editor/Room Node Graph Editor")]
     public static void OpenWindow()
@@ -84,6 +91,9 @@ public class RoomNodeGraphEditor : EditorWindow
         // If a scriptable object of type RoomNodeGraphSO has been selected then process
         if (currentRoomNodeGraph != null)
         {
+            //Draw Background grid lines
+            DrawGridLines(gridSizeSmall, .2f, Color.gray);
+            DrawGridLines(gridSizeLarge, .3f, Color.gray);
             //Draw Dragged Lines - Connecting line between room nodes
             DrawDraggedLine();
 
@@ -114,6 +124,9 @@ public class RoomNodeGraphEditor : EditorWindow
 
     private void ProcessEvents(Event currentEvent) {
 
+        //Reset Graph Drag
+        graphDrag = Vector2.zero;
+
         // Get room node that mouse is over if it is null or if it is not currently dragging one
         if (currentRoomNode == null || currentRoomNode.isLeftClickDragging == false)
         {
@@ -124,6 +137,7 @@ public class RoomNodeGraphEditor : EditorWindow
         if (currentRoomNode == null || currentRoomNodeGraph.roomNodeToDrawLineFrom != null)
         {
             ProcessRoomNodeGraphEvents(currentEvent);
+
         }
         // else process room node events
         else
@@ -176,9 +190,14 @@ public class RoomNodeGraphEditor : EditorWindow
     /// </summary>
     private void ProcessMouseDragEvents(Event currentEvent)
     {
+        //Right Mouse Button
         if(currentEvent.button == 1)
         {
             ProcessRightMouseDragEvent(currentEvent);
+        }
+        else if (currentEvent.button == 0)
+        {
+            ProcessLeftMouseDragEvent(currentEvent.delta);
         }
     }
 
@@ -189,6 +208,18 @@ public class RoomNodeGraphEditor : EditorWindow
             DragConnectingLine(currentEvent.delta);
             GUI.changed = true;
         }
+    }
+
+    private void ProcessLeftMouseDragEvent(Vector2 dragDelta)
+    {
+        graphDrag = dragDelta;
+
+        for(int i = 0; i < currentRoomNodeGraph.roomNodeList.Count; i++)
+        {
+            currentRoomNodeGraph.roomNodeList[i].DragNode(graphDrag);
+        }
+
+        GUI.changed = true;
     }
 
     /// <summary>
@@ -232,6 +263,11 @@ public class RoomNodeGraphEditor : EditorWindow
         GenericMenu menu = new GenericMenu();
 
         menu.AddItem(new GUIContent("Create Room Node"), false, CreateRoomNode, mousePosition);
+        menu.AddSeparator("");
+        menu.AddItem(new GUIContent("Select All Room Nodes"), false, SelectAllRoomNodes);
+        menu.AddSeparator("");
+        menu.AddItem(new GUIContent("Delete Selected Room Node Links"), false, DeleteSelectedRoomNodeLinks);
+        menu.AddItem(new GUIContent("Delete Selected Room Nodes"), false, DeleteSelectedRoomNodes);
 
         menu.ShowAsContext();
     }
@@ -277,6 +313,92 @@ public class RoomNodeGraphEditor : EditorWindow
     }
 
     /// <summary>
+    /// Deletes the link between the selected room nodes
+    /// </summary>
+    private void DeleteSelectedRoomNodeLinks()
+    {
+        foreach (RoomNodeSO roomNode in currentRoomNodeGraph.roomNodeList)
+        {
+            if(roomNode.isSelected && roomNode.childRoomNodeIDList.Count > 0)
+            {
+                for (int i = roomNode.childRoomNodeIDList.Count - 1; i >= 0; i--)
+                {
+                    //Get Child Room Node
+                    RoomNodeSO childRoomNode = currentRoomNodeGraph.GetRoomNode(roomNode.childRoomNodeIDList[i]);
+
+                    if(childRoomNode != null)
+                    {
+                        //remove child id from the room node list
+                        roomNode.RemoveChildRoomNodeIdFromRoomNode(childRoomNode.id);
+
+                        //remove parent id from the child room node
+                        childRoomNode.RemoveParentoomNodeIdFromRoomNode(roomNode.id);
+                    }
+                }
+            }
+        }
+
+        ClearAllSelectedRoomNodes();
+    }
+
+    /// <summary>
+    /// Delete selected room nodes
+    /// </summary>
+    private void DeleteSelectedRoomNodes()
+    {
+        Queue<RoomNodeSO> roomNodesToDelete = new Queue<RoomNodeSO>();
+
+        foreach(RoomNodeSO roomNode in currentRoomNodeGraph.roomNodeList)
+        {
+            if(roomNode.isSelected && !roomNode.roomNodeType.isEntrance)
+            {
+                roomNodesToDelete.Enqueue(roomNode);
+
+                //iterate through child room nodes ids
+                foreach (string childRoomNodeId in roomNode.childRoomNodeIDList)
+                {
+                    RoomNodeSO childRoomNode = currentRoomNodeGraph.GetRoomNode(childRoomNodeId);
+
+                    if (childRoomNode != null)
+                    {
+                        childRoomNode.RemoveParentoomNodeIdFromRoomNode(roomNode.id);
+                    }
+                }
+
+                //iterate through parent room nodes ids
+                foreach (string parentRoomNodeId in roomNode.parentRoomNodeIDList)
+                {
+                    RoomNodeSO parentRoomNode = currentRoomNodeGraph.GetRoomNode(parentRoomNodeId);
+
+                    if (parentRoomNode != null)
+                    {
+                        parentRoomNode.RemoveChildRoomNodeIdFromRoomNode(roomNode.id);
+                    }
+                }
+            }
+        }
+
+        while(roomNodesToDelete.Count > 0)
+        {
+            //get room node from queue
+            RoomNodeSO roomNodeToDelete = roomNodesToDelete.Dequeue();
+
+            //remove node from dictionary
+            currentRoomNodeGraph.roomNodeDictionary.Remove(roomNodeToDelete.id);
+
+            //remove node from current room node graph list
+            currentRoomNodeGraph.roomNodeList.Remove(roomNodeToDelete);
+            
+            //remove node from asset database
+            DestroyImmediate(roomNodeToDelete, true);
+
+            AssetDatabase.SaveAssets();
+        }
+
+        ClearAllSelectedRoomNodes();
+    }
+
+    /// <summary>
     /// Draw room nodes in the graph window
     /// </summary>
     private void DrawRoomNodes()
@@ -295,6 +417,37 @@ public class RoomNodeGraphEditor : EditorWindow
         }
 
         GUI.changed = true; 
+    }
+
+    private void DrawGridLines(float gridSize, float opacity, Color color)
+    {
+        //position rect editor screen
+        int numOfVerticalLinesToDraw = Mathf.CeilToInt((position.width + gridSize) / gridSize);
+        int numOfHorizontalLinesToDraw = Mathf.CeilToInt((position.height + gridSize) / gridSize);
+
+        Handles.color = new Color(color.r, color.g, color.g, opacity);
+
+        graphOffset += graphDrag * 0.5f;
+
+        Debug.Log("graphOffset: " + graphOffset +" | graphDrag: " + graphDrag);
+
+        Vector3 gridOffset = new Vector3(graphOffset.x % gridSize, graphOffset.y % gridSize, 0);
+
+        Debug.Log("gridOffset: " + gridOffset);
+
+        //start drawing from slightly beyond the screens
+        for (int i  = 0; i < numOfVerticalLinesToDraw; i++)
+        {
+            Handles.DrawLine(new Vector3(gridSize * i, -gridSize, 0f) + gridOffset, new Vector3(gridSize * i, position.height + gridSize, 0f) + gridOffset);
+        }
+
+        for (int i = 0; i < numOfHorizontalLinesToDraw; i++)
+        {
+            Handles.DrawLine(new Vector3(-gridSize, gridSize * i, 0f) + gridOffset, new Vector3(position.width + gridSize, gridSize * i, 0f) + gridOffset);
+        }
+
+        Handles.color = Color.white;
+
     }
 
     /// <summary>
@@ -332,6 +485,15 @@ public class RoomNodeGraphEditor : EditorWindow
 
                 GUI.changed = true;
             }
+        }
+    }
+
+    private void SelectAllRoomNodes()
+    {
+        foreach (RoomNodeSO roomNodeSO in currentRoomNodeGraph.roomNodeList)
+        {
+            roomNodeSO.isSelected = true;
+            GUI.changed = true;
         }
     }
 

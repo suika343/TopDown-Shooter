@@ -6,11 +6,11 @@ using UnityEditor;
 
 public class RoomNodeSO : ScriptableObject
 {
-    [HideInInspector] 
+    //[HideInInspector] 
     public string id;
-    [HideInInspector] 
+    //[HideInInspector] 
     public List<string> parentRoomNodeIDList = new List<string>();
-    [HideInInspector] 
+    //[HideInInspector] 
     public List<string> childRoomNodeIDList = new List<string>();
     [HideInInspector] public RoomNodeGraphSO roomNodeGraph;
     public RoomNodeTypeSO roomNodeType;
@@ -60,7 +60,31 @@ public class RoomNodeSO : ScriptableObject
             int selected = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
             int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay());
             roomNodeType = roomNodeTypeList.list[selection];
-            //this.name = "RoomNode" + "_" + roomNodeType.roomNodeTypeName;
+
+            //if the room type selection has changed making child connections potentially invalid
+            if (roomNodeTypeList.list[selected].isCorridor && !roomNodeTypeList.list[selection].isCorridor ||
+                !roomNodeTypeList.list[selected].isCorridor && roomNodeTypeList.list[selection].isCorridor ||
+                roomNodeTypeList.list[selected].isBossRoom && !roomNodeTypeList.list[selection].isBossRoom 
+                )
+            {
+                if (childRoomNodeIDList.Count > 0)
+                {
+                    for (int i = childRoomNodeIDList.Count - 1; i >= 0; i--)
+                    {
+                        //Get Child Room Node
+                        RoomNodeSO childRoomNode = roomNodeGraph.GetRoomNode(childRoomNodeIDList[i]);
+
+                        if (childRoomNode != null)
+                        {
+                            //remove child id from the room node list
+                            RemoveChildRoomNodeIdFromRoomNode(childRoomNode.id);
+
+                            //remove parent id from the child room node
+                            childRoomNode.RemoveParentoomNodeIdFromRoomNode(id);
+                        }
+                    }
+                }        
+            }
         }
 
         if (EditorGUI.EndChangeCheck())
@@ -184,7 +208,98 @@ public class RoomNodeSO : ScriptableObject
     /// <returns></returns>
     public bool AddChildRoomNodeIdToRoomNode(string childId)
     {
-        childRoomNodeIDList.Add(childId);
+        if (IsChildRoomValid(childId))
+        {
+            childRoomNodeIDList.Add(childId);
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Check if the child room node can be validly added to the parent node return true if valid, false otherwise
+    /// </summary>
+    /// <param name="childId"></param>
+    /// <returns></returns>
+    public bool IsChildRoomValid(string childId)
+    {
+        bool isConnectedBossRoomAlready = false;
+        //Check if there is already a connected boss room in the node graph
+        foreach (RoomNodeSO roomNode in roomNodeGraph.roomNodeList)
+        {
+            if (roomNode.roomNodeType.isBossRoom && roomNode.parentRoomNodeIDList.Count > 0)
+            {
+                isConnectedBossRoomAlready = true;
+            }
+        }
+        
+        //if child node is a boss room and there is already a boss room connected in the graph - return false
+        if (roomNodeGraph.GetRoomNode(childId).roomNodeType.isBossRoom && isConnectedBossRoomAlready)
+        {
+            return false;
+        }
+
+        //if the child node is none - return false
+        if (roomNodeGraph.GetRoomNode(childId).roomNodeType.isNone)
+        {
+            return false;
+        }
+
+        //if the node already is a child of this room node - return false
+        if (childRoomNodeIDList.Contains(childId))
+        {
+            return false;
+        }
+
+        //cannot connect a room node to itself - return false
+        if (childId == id)
+        {
+            return false;
+        }
+
+        //if the node is a parent of this node - return false
+        if (parentRoomNodeIDList.Contains(childId))
+        {
+            return false;
+        }
+
+        //if the node already has a parent - return false
+        if (roomNodeGraph.GetRoomNode(childId).parentRoomNodeIDList.Count > 0)
+        {
+            return false;
+        }
+
+        //cannot connect corridors to each other
+        if (roomNodeGraph.GetRoomNode(childId).roomNodeType.isCorridor && roomNodeType.isCorridor)
+        {
+            return false;
+        }
+
+        //cannot connect rooms to rooms (without corridors)
+        if (!roomNodeGraph.GetRoomNode(childId).roomNodeType.isCorridor && !roomNodeType.isCorridor)
+        {
+            return false;
+        }
+
+        //if adding a corridor and this node already has the max number of child corridors
+        if (roomNodeGraph.GetRoomNode(childId).roomNodeType.isCorridor && childRoomNodeIDList.Count >= Settings.maxChildCorridors)
+        {
+            return false;
+        }
+
+        //the entrance node must be the top level parent node
+        if (roomNodeGraph.GetRoomNode(childId).roomNodeType.isEntrance)
+        {
+            return false;
+        }
+
+        //if adding a room to a corridor, check that this corridor doesnt already have a room added to it
+        if (!roomNodeGraph.GetRoomNode(childId).roomNodeType.isCorridor && childRoomNodeIDList.Count > 0)
+        {
+            return false;
+        }
+
         return true;
     }
 
@@ -197,6 +312,38 @@ public class RoomNodeSO : ScriptableObject
     {
         parentRoomNodeIDList.Add(parentId);
         return true;
+    }
+    
+    /// <summary>
+    /// Remove childID from the child room node list (returns true if noide has beed removed, false otherwise)
+    /// </summary>
+    /// <param name="childId"></param>
+    /// <returns></returns>
+    public bool RemoveChildRoomNodeIdFromRoomNode(string childId)
+    {
+        //if the node contains the child id then remove it
+        if (childRoomNodeIDList.Contains(childId))
+        {
+            childRoomNodeIDList.Remove(childId);
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Remove parentId from the parent room node list (returns true if noide has beed removed, false otherwise)
+    /// </summary>
+    /// <param name="parentId"></param>
+    /// <returns></returns>
+    public bool RemoveParentoomNodeIdFromRoomNode(string parentId)
+    {
+        //if the node contains the child id then remove it
+        if (parentRoomNodeIDList.Contains(parentId))
+        {
+            parentRoomNodeIDList.Remove(parentId);
+            return true;
+        }
+        return false;
     }
 
 #endif
