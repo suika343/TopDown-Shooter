@@ -8,6 +8,9 @@ public class RoomNodeGraphEditor : EditorWindow
 {
     private GUIStyle roomNodeStyle;
     private GUIStyle selectedRoomNodeStyle;
+    private GUIStyle chestRoomNodeStyle;
+    private GUIStyle entraceRoomNodeStyle;
+    private GUIStyle bossRoomNodeStyle;
     private static RoomNodeGraphSO currentRoomNodeGraph;
     private RoomNodeSO currentRoomNode = null;
     private RoomNodeTypeListSO roomNodeTypeList;
@@ -29,6 +32,12 @@ public class RoomNodeGraphEditor : EditorWindow
     private const float gridSizeLarge = 100f;
     private const float gridSizeSmall = 20f;
 
+    private int smallRoomsCount = 0;
+    private int mediumRoomsCount = 0;
+    private int largeRoomsCount = 0;
+    private int chestRoomsCount = 0;
+    private int totalRoomsCount = 0;
+
     [MenuItem("Room Node Graph Editor", menuItem = "Window/Dungeon Editor/Room Node Graph Editor")]
     public static void OpenWindow()
     {
@@ -46,6 +55,25 @@ public class RoomNodeGraphEditor : EditorWindow
         roomNodeStyle.normal.textColor = Color.white;
         roomNodeStyle.padding = new RectOffset(nodePadding, nodePadding, nodePadding, nodePadding);
         roomNodeStyle.border = new RectOffset(nodeBorder, nodeBorder, nodeBorder, nodeBorder);
+
+        entraceRoomNodeStyle = new GUIStyle();
+        entraceRoomNodeStyle.normal.background = EditorGUIUtility.Load("node2") as Texture2D;
+        entraceRoomNodeStyle.normal.textColor = Color.white;
+        entraceRoomNodeStyle.padding = new RectOffset(nodePadding, nodePadding, nodePadding, nodePadding);
+        entraceRoomNodeStyle.border = new RectOffset(nodeBorder, nodeBorder, nodeBorder, nodeBorder);
+
+        chestRoomNodeStyle = new GUIStyle();
+        chestRoomNodeStyle.normal.background = EditorGUIUtility.Load("node5") as Texture2D;
+        chestRoomNodeStyle.normal.textColor = Color.white;
+        chestRoomNodeStyle.padding = new RectOffset(nodePadding, nodePadding, nodePadding, nodePadding);
+        chestRoomNodeStyle.border = new RectOffset(nodeBorder, nodeBorder, nodeBorder, nodeBorder);
+
+
+        bossRoomNodeStyle = new GUIStyle();
+        bossRoomNodeStyle.normal.background = EditorGUIUtility.Load("node6") as Texture2D;
+        bossRoomNodeStyle.normal.textColor = Color.white;
+        bossRoomNodeStyle.padding = new RectOffset(nodePadding, nodePadding, nodePadding, nodePadding);
+        bossRoomNodeStyle.border = new RectOffset(nodeBorder, nodeBorder, nodeBorder, nodeBorder);
 
         //Define selected layout style
         selectedRoomNodeStyle = new GUIStyle();
@@ -91,6 +119,7 @@ public class RoomNodeGraphEditor : EditorWindow
         // If a scriptable object of type RoomNodeGraphSO has been selected then process
         if (currentRoomNodeGraph != null)
         {
+           
             //Draw Background grid lines
             DrawGridLines(gridSizeSmall, .2f, Color.gray);
             DrawGridLines(gridSizeLarge, .3f, Color.gray);
@@ -105,7 +134,16 @@ public class RoomNodeGraphEditor : EditorWindow
 
             //Draw Room Nodes
             DrawRoomNodes();
+
+            CountRoomTypes();
+            GUI.Label(new Rect(5, 5, 200, 100), "Room Nodes: " + currentRoomNodeGraph.roomNodeList.Count);
+            GUI.Label(new Rect(5, 25, 200, 100), "Small Rooms: " + smallRoomsCount);
+            GUI.Label(new Rect(5, 45, 200, 100), "Medium Rooms: " + mediumRoomsCount);
+            GUI.Label(new Rect(5, 65, 200, 100), "Large Rooms: " + largeRoomsCount);
+            GUI.Label(new Rect(5, 85, 200, 100), "Chest Rooms: " + chestRoomsCount);
+            GUI.Label(new Rect(5, 105, 200, 100), "Total Rooms: " + totalRoomsCount);
         }
+
 
         if (GUI.changed)
         {
@@ -410,9 +448,21 @@ public class RoomNodeGraphEditor : EditorWindow
             {
                 roomNode.Draw(selectedRoomNodeStyle);
             }
-            else
+            else if (!roomNode.isSelected)
             {
                 roomNode.Draw(roomNodeStyle);
+            }
+            if (roomNode.roomNodeType.isEntrance)
+            {
+                roomNode.Draw(entraceRoomNodeStyle);
+            }
+            else if (roomNode.roomNodeType.isBossRoom)
+            {
+                roomNode.Draw(bossRoomNodeStyle);
+            }
+            else if (roomNode.roomNodeType.roomNodeTypeName.Contains("Chest Room"))
+            {
+                roomNode.Draw(chestRoomNodeStyle);
             }
         }
 
@@ -429,11 +479,7 @@ public class RoomNodeGraphEditor : EditorWindow
 
         graphOffset += graphDrag * 0.5f;
 
-        Debug.Log("graphOffset: " + graphOffset +" | graphDrag: " + graphDrag);
-
         Vector3 gridOffset = new Vector3(graphOffset.x % gridSize, graphOffset.y % gridSize, 0);
-
-        Debug.Log("gridOffset: " + gridOffset);
 
         //start drawing from slightly beyond the screens
         for (int i  = 0; i < numOfVerticalLinesToDraw; i++)
@@ -566,5 +612,39 @@ public class RoomNodeGraphEditor : EditorWindow
             currentRoomNodeGraph = roomNodeGraph;
             GUI.changed = true;
         }
+    }
+
+    private void CountRoomTypes()
+    {
+        smallRoomsCount = 0;
+        mediumRoomsCount = 0; 
+        largeRoomsCount = 0;
+        chestRoomsCount = 0;
+        totalRoomsCount = 0;
+        foreach (RoomNodeSO roomNode in currentRoomNodeGraph.roomNodeList)
+        {
+            if(roomNode.roomNodeType.roomNodeTypeName.Contains("Small Room")){
+                smallRoomsCount++;
+            }
+            else if (roomNode.roomNodeType.roomNodeTypeName.Contains("Medium Room")){
+                mediumRoomsCount++;
+            }
+            else if(roomNode.roomNodeType.roomNodeTypeName.Contains("Large Room")){
+                largeRoomsCount++;
+            }
+            else if (roomNode.roomNodeType.roomNodeTypeName.Contains("Chest Room"))
+            {
+                chestRoomsCount++;
+            }
+            else if (roomNode.roomNodeType.roomNodeTypeName.Contains("Boss Room"))
+            {
+                totalRoomsCount++;
+            }
+            else if (roomNode.roomNodeType.roomNodeTypeName.Contains("Entrance"))
+            {
+                totalRoomsCount++;
+            }
+        }
+        totalRoomsCount = totalRoomsCount + smallRoomsCount + mediumRoomsCount + largeRoomsCount + chestRoomsCount;
     }
 }
