@@ -15,7 +15,7 @@ public class Room
     public Vector2Int templateLowerBounds;
     public Vector2Int templateUpperBounds;
 
-    public Vector2Int[] spawnPointsArray;
+    public Vector2Int[] spawnPositionArray;
     public List<string> childRoomIDList;
     public string parentRoomID;
     public List<Doorway> doorwayList;

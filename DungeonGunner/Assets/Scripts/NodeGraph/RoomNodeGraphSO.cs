@@ -26,6 +26,24 @@ public class RoomNodeGraphSO : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Get a RoomNodeSO by its RoomNodeType   
+    /// </summary>
+    /// <param name="roomNodeType"></param>
+    /// <returns></returns>
+    public RoomNodeSO GetRoomNode(RoomNodeTypeSO roomNodeType)
+    {
+        foreach (RoomNodeSO roomNode in roomNodeList)
+        {
+            if (roomNode.roomNodeType == roomNodeType)
+            {
+                return roomNode;
+            }
+        }
+        return null;
+    }
+
+
     public RoomNodeSO GetRoomNode(string roomNodeId)
     {
         if (roomNodeDictionary.TryGetValue(roomNodeId, out RoomNodeSO roomNode))
@@ -33,6 +51,14 @@ public class RoomNodeGraphSO : ScriptableObject
             return roomNode;
         }
         return null;
+    }
+
+    public IEnumerable<RoomNodeSO> GetChildRoomNodes(RoomNodeSO roomNode)
+    {
+        foreach (string childRoomNodeId in roomNode.childRoomNodeIDList)
+        {
+            yield return GetRoomNode(childRoomNodeId);
+        }
     }
 
     #region EDITOR CODE
