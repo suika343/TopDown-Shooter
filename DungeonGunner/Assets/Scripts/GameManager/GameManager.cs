@@ -60,6 +60,15 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         DungeonLevelSO dungeonLevel = dungeonLevelList[dungeonLevelListIndex];
         Debug.Log("Playing Dungeon Level: " + dungeonLevel.levelName);
+        bool dungeonBuiltSuccessfully = DungeonBuilder.Instance.GenerateDungeon(dungeonLevel);
+        if(!dungeonBuiltSuccessfully) 
+        {
+            Debug.LogError("DUNGEON NOT BUILT - COULD NOT BUILD DUNGEON FROM SPECIFIED NODE GRAPHS");
+        }
+        else
+        {
+            Debug.Log("Dungeon Built Successfully!");
+        }
     }
 
     #region VALIDATION
