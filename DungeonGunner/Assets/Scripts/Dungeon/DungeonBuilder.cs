@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Drawing.Text;
+using UnityEngine.Tilemaps;
 
 [DisallowMultipleComponent]
 public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
@@ -453,7 +454,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         foreach (RoomTemplateSO roomTemplate in roomTemplateList)
         {
             //Add matching room templates
-            if(roomTemplate.roomNodeType = roomNodeType)
+            if(roomTemplate.roomNodeType == roomNodeType)
             {
                 matchingRoomTemplates.Add(roomTemplate);
             }
@@ -613,7 +614,29 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
     /// </summary>
     private void InstantiateRoomGameObjects()
     {
+        //Iterate through all the dungeon rooms in the dictionary
+        foreach(KeyValuePair<string, Room> keyValuePair in dungeonBuilderRoomDictionary)
+        {
+            Room room = keyValuePair.Value;
+            //Calculate where to instantiate tile maps
+            //(remember the room instantiation position needs to be adjusted by the room template lower bounds)
+            Vector3 roomPosition = new Vector3(room.lowerBounds.x - room.templateLowerBounds.x, room.lowerBounds.y - room.templateLowerBounds.y, 0f);
 
+            //Instantiate the room prefab
+            GameObject roomGameObject = Instantiate(room.prefab, roomPosition, Quaternion.identity, transform);
+
+            //get InstantiatedRoom component from prefab
+            InstantiatedRoom instantiatedRoom = roomGameObject.GetComponent<InstantiatedRoom>();
+
+            instantiatedRoom.room = room;
+
+            //Initialize InstantiatedRoom
+            instantiatedRoom.Initialize(roomGameObject);
+
+            //Save gameobject reference
+            room.instantiatedRoom = instantiatedRoom;
+
+        }
     }
 
     private void ClearDungeon()

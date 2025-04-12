@@ -20442,6 +20442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 781279090519665528}
   - component: {fileID: 7832768966227593537}
+  - component: {fileID: 3509765248708930801}
   m_Layer: 12
   m_Name: BossRoom_Sorcery_2
   m_TagString: Untagged
@@ -20512,6 +20513,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 46, y: 40}
   m_EdgeRadius: 0
+--- !u!114 &3509765248708930801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969719553655747264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d525b4d90e28abf4d9162a31b6b5707e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  groundTilemap: {fileID: 0}
+  decoration1Tilemap: {fileID: 0}
+  decoration2Tilemap: {fileID: 0}
+  frontTilemap: {fileID: 0}
+  collisionTilemap: {fileID: 0}
+  minimapTilemap: {fileID: 0}
+  roomColliderBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!1 &5167245005553054311
 GameObject:
   m_ObjectHideFlags: 0
