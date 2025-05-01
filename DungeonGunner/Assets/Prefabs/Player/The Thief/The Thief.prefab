@@ -48,9 +48,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2237693562209648686, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -677451274, guid: af2370586aac51047821e8187e01d18b, type: 3}
+    - target: {fileID: 3509400282873037963, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: de5f767e57fc8a340b0ce76a8b17838a, type: 2}
+    - target: {fileID: 5529242496897435652, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
+      propertyPath: m_Size.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5529242496897435652, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5529242496897435652, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9f3ed98496ca6db4caf470c695716511, type: 3}
+    - target: {fileID: 5529242496897435652, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354348816495357456, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
+      propertyPath: m_Size.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354348816495357456, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354348816495357456, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9f3ed98496ca6db4caf470c695716511, type: 3}
+    - target: {fileID: 7354348816495357456, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8334715806656250189, guid: 3d02978b9d3b62f4a85124784a5dd36b, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: The Thief
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
