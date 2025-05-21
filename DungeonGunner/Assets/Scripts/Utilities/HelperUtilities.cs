@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Rendering.Universal;
 
 public static class HelperUtilities
 {
@@ -96,5 +97,28 @@ public static class HelperUtilities
         }
 
         return error;
+    }
+
+    public static Vector3 GetSpawnPointNearestToPlayer(Vector3 playerPosition)
+    {
+        Room currentRoom = GameManager.Instance.GetCurrentRoom();
+
+        Grid currentRoomGrid = currentRoom.instantiatedRoom.grid;
+
+        Vector3 nearestSpawnPosition = new Vector3(100000000f, 100000000f, 0);
+
+        //Loop through all the spawn positions in the room
+        foreach(Vector2Int spawnPositionGridPos in currentRoom.spawnPositionArray)
+        {
+            // convert the spawn grid position to world position
+            Vector3 spawnPointWorldPos = currentRoomGrid.CellToWorld((Vector3Int)spawnPositionGridPos);
+
+            if(Vector3.Distance(spawnPointWorldPos, playerPosition) < Vector3.Distance(nearestSpawnPosition, playerPosition))
+            {
+                nearestSpawnPosition = spawnPointWorldPos;
+            }
+        }
+
+        return nearestSpawnPosition;
     }
 }

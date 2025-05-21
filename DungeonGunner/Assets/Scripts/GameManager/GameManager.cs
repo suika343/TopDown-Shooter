@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEditor;
 
 [DisallowMultipleComponent]
 public class GameManager : SingletonMonobehaviour<GameManager>
@@ -23,8 +24,35 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     [SerializeField]
     private int currentDungeonLevelListIndex = 0;
 
+    private Room currentRoom;
+    private Room previousRoom;
+    private PlayerDetailsSO playerDetails;
+    private Player player;
+
     [SerializeField]
     private GameState gameState;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        // Set player details from GameResources
+        playerDetails = GameResources.Instance.currentPlayer.playerDetails;
+
+        //Instantiate Player
+        InstantiatePlayer();
+    }
+
+    private void InstantiatePlayer()
+    {
+        //Instantiate player prefab in the scene
+        GameObject playerPrefab = Instantiate(playerDetails.playerPrefab);
+
+        //Initialize player
+        player = playerPrefab.GetComponent<Player>();
+
+        player.InitializePlayer(playerDetails);
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -69,6 +97,29 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         {
             Debug.Log("Dungeon Built Successfully!");
         }
+
+        // Set player position roughly mmidway across the room
+        player.gameObject.transform.position = new Vector3((currentRoom.lowerBounds.x + currentRoom.upperBounds.x) / 2f,
+            (currentRoom.lowerBounds.y + currentRoom.upperBounds.y) / 2f, 0f);
+
+        // Set the player position to the nearest spawn point
+        player.gameObject.transform.position = HelperUtilities.GetSpawnPointNearestToPlayer(player.gameObject.transform.position);
+    }
+
+    public void SetCurrentRoom(Room room)
+    {
+        previousRoom = currentRoom;
+        currentRoom = room;
+    }
+
+    public Room GetCurrentRoom()
+    {
+        return currentRoom;
+    }
+
+    public Player GetPlayer()
+    {
+        return player;
     }
 
     #region VALIDATION

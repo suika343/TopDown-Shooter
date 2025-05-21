@@ -500,6 +500,9 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
             room.parentRoomID = "";
             //player always starts in the entrance room
             room.isPreviouslyVisited = true;
+
+            //Set Game Manager current room to entrance room
+            GameManager.Instance.SetCurrentRoom(room);
         }
         else
         {

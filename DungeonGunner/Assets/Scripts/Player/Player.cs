@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     /// Initialize player with player details
     /// </summary>
     /// <param name="playerDetails"></param>
-    private void InitializePlayer(PlayerDetailsSO playerDetails)
+    public void InitializePlayer(PlayerDetailsSO playerDetails)
     {
         this.playerDetails = playerDetails;
 
