@@ -5,6 +5,78 @@ using UnityEngine.Rendering.Universal;
 
 public static class HelperUtilities
 {
+    public static Camera mainCamera;
+
+    /// <summary>
+    /// Returns the world position of the mouse cursor in 2D space.
+    /// </summary>
+    /// <returns></returns>
+    public static Vector3 GetMouseWorldPosition()
+    {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+        Vector3 mouseScreenPosition = Input.mousePosition;
+
+        // Clamp mouse position to screen bounds
+        mouseScreenPosition.x = Mathf.Clamp(mouseScreenPosition.x, 0, Screen.width);
+        mouseScreenPosition.y = Mathf.Clamp(mouseScreenPosition.y, 0, Screen.height);
+
+        Vector3 worldPosition =  Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        worldPosition.z = 0; // Ensure z is zero for 2D games
+
+        return worldPosition;
+    }
+
+    /// <summary>
+    /// Returns angle in degrees from a Vector3
+    /// </summary>
+    /// <param name="vector"></param>
+    /// <returns></returns>
+    public static float GetAngleFromVector(Vector3 vector)
+    {
+        float angleInRadians = Mathf.Atan2(vector.y, vector.x);
+        float angleInDegrees = angleInRadians * Mathf.Rad2Deg;
+        return angleInDegrees;
+    }
+
+    public static AimDirection GetAimDirection(float angleInDegrees)
+    {
+        AimDirection aimDirection;
+
+        if (angleInDegrees >= 22f && angleInDegrees <= 67f)
+        {
+            aimDirection = AimDirection.UpRight;
+        }
+        else if (angleInDegrees > 67f && angleInDegrees <= 112f)
+        {
+            aimDirection = AimDirection.Up;
+        }
+        else if (angleInDegrees > 112f && angleInDegrees <= 158f)
+        {
+            aimDirection = AimDirection.UpLeft;
+        }
+        else if ((angleInDegrees > 158f && angleInDegrees <= 180f) || (angleInDegrees > -180f && angleInDegrees <= -135f))
+        {
+            aimDirection = AimDirection.Left;
+        }
+        else if (angleInDegrees > -135f && angleInDegrees <= -45f)
+        {
+            aimDirection = AimDirection.Down;
+        }
+        else if ((angleInDegrees > -45f && angleInDegrees <= 0) || (angleInDegrees > 0 && angleInDegrees < 22f))
+        {
+            aimDirection = AimDirection.Right;
+        }
+        else
+        {
+            aimDirection = AimDirection.Right; // Default case if angle is not in the expected range
+        }
+
+       return aimDirection;
+    }
+
     /// <summary>
     /// Empty String Debug Check
     /// <returns></returns>
