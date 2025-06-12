@@ -77,15 +77,15 @@ SpriteRenderer:
   m_SortingLayerID: -1717334295
   m_SortingLayer: 4
   m_SortingOrder: 5
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: abbe40c4d6a803f42a7c4f53404a484d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.125, y: 0.6875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!60 &1835115407353046467
@@ -125,10 +125,10 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.18444446, y: 0.37008545}
+    oldSize: {x: 1.125, y: 0.6875}
+    newSize: {x: 1.125, y: 0.6875}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -424,6 +424,12 @@ GameObject:
   - component: {fileID: 8507624350797058357}
   - component: {fileID: 541584088402432763}
   - component: {fileID: 1904787444920185111}
+  - component: {fileID: 7782761150120999521}
+  - component: {fileID: 447266909511855455}
+  - component: {fileID: 2354548748520685863}
+  - component: {fileID: 7073124165364747145}
+  - component: {fileID: 8756881131015296840}
+  - component: {fileID: 733866403636355896}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -698,6 +704,82 @@ MonoBehaviour:
   health: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
+  aimWeaponEvent: {fileID: 0}
+  idleEvent: {fileID: 0}
+--- !u!114 &7782761150120999521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334715806656250189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e47212611f224544197794c3ea1f3166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &447266909511855455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334715806656250189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b2aef1a0f8f044c81d6f995edb80fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2354548748520685863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334715806656250189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a1ab1913120a04d9deff9646156a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7073124165364747145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334715806656250189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2108541de4bc74eba753256dff62fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRotationPointTransform: {fileID: 7266014243670670302}
+--- !u!114 &8756881131015296840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334715806656250189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f60e11b6b806bb240870d9c18fd23d23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponShootPosition: {fileID: 4074467297976006340}
+--- !u!114 &733866403636355896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334715806656250189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50871aafda1d27948bfbea11daa5962c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8361669800998201041
 GameObject:
   m_ObjectHideFlags: 0

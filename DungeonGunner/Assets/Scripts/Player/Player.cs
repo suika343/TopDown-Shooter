@@ -11,6 +11,12 @@ using System.Collections;
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Health))]
+[RequireComponent(typeof(IdleEvent))]
+[RequireComponent(typeof(Idle))]
+[RequireComponent(typeof(AimWeaponEvent))]
+[RequireComponent(typeof(AimWeapon))]
+[RequireComponent(typeof(PlayerControl))]
+[RequireComponent(typeof(AnimatePlayer))]
 [DisallowMultipleComponent]
 #endregion
 public class Player : MonoBehaviour
@@ -20,12 +26,18 @@ public class Player : MonoBehaviour
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public Animator animator;
 
+    [HideInInspector] public AimWeaponEvent aimWeaponEvent;
+    [HideInInspector] public IdleEvent idleEvent;
+
     private void Awake()
     {
         // Get components
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
+
+        idleEvent = GetComponent<IdleEvent>(); 
+        aimWeaponEvent = GetComponent<AimWeaponEvent>();
     }
 
     /// <summary>
