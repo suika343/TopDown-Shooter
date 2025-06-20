@@ -17,6 +17,8 @@ using System.Collections;
 [RequireComponent(typeof(AimWeapon))]
 [RequireComponent(typeof(PlayerControl))]
 [RequireComponent(typeof(AnimatePlayer))]
+[RequireComponent(typeof(MovementByVelocityEvent))]
+[RequireComponent(typeof(MovementByVelocity))]
 [DisallowMultipleComponent]
 #endregion
 public class Player : MonoBehaviour
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
     [HideInInspector] public IdleEvent idleEvent;
+    [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
 
     private void Awake()
     {
@@ -38,6 +41,7 @@ public class Player : MonoBehaviour
 
         idleEvent = GetComponent<IdleEvent>(); 
         aimWeaponEvent = GetComponent<AimWeaponEvent>();
+        movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
     }
 
     /// <summary>

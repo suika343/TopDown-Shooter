@@ -7,12 +7,16 @@ public class PlayerControl : MonoBehaviour
     #endregion Tooltip
 
     [SerializeField] private Transform weaponShootPosition;
+    [SerializeField] private MovementDetailsSO movementDetails;
 
     private Player player;
+    private float moveSpeed;
+    
 
     private void Awake()
     {
         player = GetComponent<Player>();
+        moveSpeed = movementDetails.GetMoveSpeed();
     }
 
     private void Update()
@@ -22,11 +26,39 @@ public class PlayerControl : MonoBehaviour
         WeaponInput();
     }
 
+    /// <summary>
+    /// Player movement input
+    /// </summary>
     private void MovementInput()
     {
-        player.idleEvent.CallIdleEvent();
+        //Get movement input
+        float horizontalMovement = Input.GetAxisRaw("Horizontal");
+        float verticalMovement = Input.GetAxisRaw("Vertical");
+
+        //Create movement direction vector
+        Vector2 direction = new Vector2(horizontalMovement, verticalMovement);
+
+        if(horizontalMovement != 0 && verticalMovement != 0)
+        {
+            //Normalize diagonal movement
+            direction.Normalize();
+            //direction *= 0.7f;
+        }
+        Debug.Log("Direction: " + direction);
+        if (direction != Vector2.zero)
+        {
+            player.movementByVelocityEvent.CallMovementByVelocityEvent(direction, moveSpeed);
+        }
+        else
+        {
+            player.idleEvent.CallIdleEvent();
+        }
+
     }
 
+    /// <summary>
+    /// Player weapon input
+    /// </summary>
     private void WeaponInput()
     {
         Vector3 weaponDirection;
@@ -60,4 +92,13 @@ public class PlayerControl : MonoBehaviour
 
         player.aimWeaponEvent.CallWeaponAimEvent(playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
     }
+
+    #region Validation
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(movementDetails), movementDetails);
+    }
+#endif
+    #endregion
 }
