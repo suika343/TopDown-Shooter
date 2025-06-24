@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -11,7 +12,10 @@ public class PlayerControl : MonoBehaviour
 
     private Player player;
     private float moveSpeed;
-    
+    private Coroutine playerRollCoroutine;
+    private WaitForFixedUpdate waitForFixedUpdate;
+    bool isPlayerRolling = false;
+    private float playerRollCooldownTimer = 0f;
 
     private void Awake()
     {
@@ -19,11 +23,25 @@ public class PlayerControl : MonoBehaviour
         moveSpeed = movementDetails.GetMoveSpeed();
     }
 
+    private void Start()
+    {
+        waitForFixedUpdate = new WaitForFixedUpdate();
+    }
+
     private void Update()
     {
+        if(isPlayerRolling)
+        {
+            // If the player is rolling, we don't want to process any other input
+            return;
+        }
+        //process player input
         MovementInput();
-
+        //process weapon input
         WeaponInput();
+
+        //player roll cooldown timer
+        PlayerRollCooldownTimer();
     }
 
     /// <summary>
@@ -34,6 +52,7 @@ public class PlayerControl : MonoBehaviour
         //Get movement input
         float horizontalMovement = Input.GetAxisRaw("Horizontal");
         float verticalMovement = Input.GetAxisRaw("Vertical");
+        bool rollInput = Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(1);
 
         //Create movement direction vector
         Vector2 direction = new Vector2(horizontalMovement, verticalMovement);
@@ -44,16 +63,62 @@ public class PlayerControl : MonoBehaviour
             direction.Normalize();
             //direction *= 0.7f;
         }
-        Debug.Log("Direction: " + direction);
+        //Debug.Log("Direction: " + direction);
+
+        //if there is movement or roll input
         if (direction != Vector2.zero)
         {
-            player.movementByVelocityEvent.CallMovementByVelocityEvent(direction, moveSpeed);
+            if (!rollInput)
+            {
+                //trigger normal movement
+                player.movementByVelocityEvent.CallMovementByVelocityEvent(direction, moveSpeed);
+            }
+            else if(playerRollCooldownTimer <= 0f) //check if roll is on cooldown
+            {
+                PlayerRoll((Vector3)direction);
+            }
         }
         else
         {
             player.idleEvent.CallIdleEvent();
         }
 
+    }
+
+    private void PlayerRoll(Vector3 direction)
+    {
+        playerRollCoroutine = StartCoroutine(PlayerRollCoroutine(direction));
+    }
+
+    private IEnumerator PlayerRollCoroutine(Vector3 direction)
+    {
+        //exit coroutine when minimum distance between target position and current position is reached
+        float minDistance = 0.2f;
+        isPlayerRolling = true;
+
+        Vector3 targetPosition = player.transform.position + (direction * movementDetails.rollDistance);
+
+        while(Vector3.Distance(player.transform.position, targetPosition) > minDistance)
+        {
+            //move player towards target position
+            player.movementToPositionEvent.CallMovementToPositionEvent(targetPosition, player.transform.position, movementDetails.rollSpeed, direction, true);
+            yield return waitForFixedUpdate;
+        }
+        isPlayerRolling = false;
+        playerRollCooldownTimer = movementDetails.rollCooldownTime;
+        player.transform.position = targetPosition;
+    }
+
+    private void PlayerRollCooldownTimer()
+    {
+        if (playerRollCooldownTimer > 0f)
+        {
+            playerRollCooldownTimer -= Time.deltaTime;
+            if (playerRollCooldownTimer < 0f)
+            {
+                playerRollCooldownTimer = 0f;
+            }
+        }
     }
 
     /// <summary>
@@ -91,6 +156,27 @@ public class PlayerControl : MonoBehaviour
         playerAimDirection = HelperUtilities.GetAimDirection(playerAngleDegrees);
 
         player.aimWeaponEvent.CallWeaponAimEvent(playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Stop player roll coroutine when colliding with an wall
+        StopPlayerRollCoroutine();
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        //Stop player roll coroutine when colliding with an wall
+        StopPlayerRollCoroutine();
+    }
+
+    private void StopPlayerRollCoroutine()
+    {
+        if(playerRollCoroutine != null)
+        {
+            StopCoroutine(playerRollCoroutine);
+            isPlayerRolling = false;
+        }
     }
 
     #region Validation

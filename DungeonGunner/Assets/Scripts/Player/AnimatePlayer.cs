@@ -19,6 +19,7 @@ public class AnimatePlayer : MonoBehaviour
         player.idleEvent.OnIdle += IdleEvent_OnIdle;
         player.aimWeaponEvent.OnWeaponAim += AimWeaponEvent_OnWeaponAim;
         player.movementByVelocityEvent.OnMovementByVelocity += MovementByVelocityEvent_OnMovementByVelocity;
+        player.movementToPositionEvent.OnMovementToPosition += MovementToPositionEvent_OnMovementToPosition;
     }
 
     private void OnDisable()
@@ -26,23 +27,33 @@ public class AnimatePlayer : MonoBehaviour
         player.idleEvent.OnIdle -= IdleEvent_OnIdle;
         player.aimWeaponEvent.OnWeaponAim -= AimWeaponEvent_OnWeaponAim;
         player.movementByVelocityEvent.OnMovementByVelocity -= MovementByVelocityEvent_OnMovementByVelocity;
+        player.movementToPositionEvent.OnMovementToPosition -= MovementToPositionEvent_OnMovementToPosition;
     }
 
     private void IdleEvent_OnIdle(IdleEvent idleEvent)
     {
+        InitializeRollAnimationParameters();
         SetIdleAnimationParameters();
     }
 
     private void AimWeaponEvent_OnWeaponAim(AimWeaponEvent aimWeaponEvent, AimWeaponEventArgs aimWeaponEventArgs)
     {
+        InitializeRollAnimationParameters();
         InitializeAimAnimationParameters();
-
         SetAimWeaponAnimationParameters(aimWeaponEventArgs.aimDirection);
     }
 
     private void MovementByVelocityEvent_OnMovementByVelocity(MovementByVelocityEvent movementByVelocityEvent, MovementByVelocityArgs movementByVelocityArgs)
     {
+        InitializeRollAnimationParameters();
         SetMovementAnimationParameters();
+    }
+
+    private void MovementToPositionEvent_OnMovementToPosition(MovementToPositionEvent movementToPositionEvent, MovementToPositionArgs movementToPositionArgs)
+    {
+        InitializeAimAnimationParameters();
+        InitializeRollAnimationParameters();
+        SetMovementToPosition(movementToPositionArgs);
     }
 
     private void SetAimWeaponAnimationParameters(AimDirection aimDirection)
@@ -70,6 +81,36 @@ public class AnimatePlayer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// For Rolling
+    /// </summary>
+    /// <param name="movementToPositionArgs"></param>
+    private void SetMovementToPosition(MovementToPositionArgs movementToPositionArgs)
+    {
+        //Check is if dodge roll - ANimate dodge roll
+        if (movementToPositionArgs.isRolling)
+        {
+            //moving right or left
+            if(movementToPositionArgs.moveDirection.x > 0f)
+            {
+                player.animator.SetBool(Settings.rollRight, true);
+            }
+            else if(movementToPositionArgs.moveDirection.x < 0f)
+            {
+                player.animator.SetBool(Settings.rollLeft, true);
+            }
+            //moving up or down
+            else if (movementToPositionArgs.moveDirection.y > 0f)
+            {
+                player.animator.SetBool(Settings.rollUp, true);
+            }
+            else if (movementToPositionArgs.moveDirection.y < 0f)
+            {
+                player.animator.SetBool(Settings.rollDown, true);
+            }
+        }
+    }
+
     private void InitializeAimAnimationParameters()
     {
         player.animator.SetBool(Settings.aimUp, false);
@@ -78,6 +119,14 @@ public class AnimatePlayer : MonoBehaviour
         player.animator.SetBool(Settings.aimLeft, false);
         player.animator.SetBool(Settings.aimRight, false);
         player.animator.SetBool(Settings.aimDown, false);
+    }
+
+    private void InitializeRollAnimationParameters()
+    {
+        player.animator.SetBool(Settings.rollUp, false);
+        player.animator.SetBool(Settings.rollDown, false);
+        player.animator.SetBool(Settings.rollLeft, false);
+        player.animator.SetBool(Settings.rollRight, false);
     }
 
     private void SetMovementAnimationParameters()
