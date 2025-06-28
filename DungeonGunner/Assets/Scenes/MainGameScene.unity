@@ -314,9 +314,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.030805688
+    x: 0
     y: 0
-    width: 0.93944186
+    width: 0.9998599
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -684,6 +684,37 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!1 &983030856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 983030857}
+  m_Layer: 0
+  m_Name: ScreenCursor_Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &983030857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983030856}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1215445156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,6 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a7b4e31b214e004ab0be399d4581296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorTarget: {fileID: 983030857}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1042,6 +1074,7 @@ SceneRoots:
   - {fileID: 577825415}
   - {fileID: 657448770}
   - {fileID: 1915643111}
+  - {fileID: 983030857}
   - {fileID: 709738088}
   - {fileID: 1562201910}
   - {fileID: 1496627211}
