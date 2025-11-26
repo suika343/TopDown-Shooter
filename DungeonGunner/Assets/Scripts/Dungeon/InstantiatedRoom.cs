@@ -35,6 +35,7 @@ public class InstantiatedRoom : MonoBehaviour
     {
         PopulateTilemapVariables(roomGameObject);
         BlockOffUnusedDoorways();
+        AddDoorsToRooms();
         DisableCollisionTilemapRenderer();
     }
 
@@ -188,6 +189,66 @@ public class InstantiatedRoom : MonoBehaviour
 
                 //set rotation of the tile copied
                 tilemap.SetTransformMatrix(new Vector3Int(startPosition.x + xPos, startPosition.y - yPos - 1, 0), transformMatrix);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Add doors to rooms if this is not a corridor room
+    /// </summary>
+    private void AddDoorsToRooms()
+    {
+        // return if the room is a corridor
+        if(room.roomNodeType.isCorridorEW || room.roomNodeType.isCorridorNS)
+        {
+            return;
+        }
+        //loop through each doorway in the room
+        foreach (Doorway doorway in room.doorwayList)
+        {
+            //check uif the doorway is connected and if there is a door prefab
+            if(doorway.isConnected && doorway.doorPrefab != null)
+            {
+                float tileDistance = Settings.tileSizePixels / Settings.pixelsPerUnit;
+
+                GameObject door = null;
+                //Create doorway with the current room as the parent
+                if(doorway.orientation == Orientation.north)
+                {
+                    //create door gameObject
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    //manipulate the door local position to position it properly
+                    //doorway prefab's door position for North is moved half a unit in x-axis and one unit in y-axis
+                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance / 2f,
+                        doorway.position.y + tileDistance, 0f);
+                }
+                else if (doorway.orientation == Orientation.south)
+                {
+                    //create door gameObject
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    //manipulate the door local position to position it properly
+                    //doorway prefab's door position for South is moved half a unit in x-axis
+                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance / 2f,
+                        doorway.position.y, 0f);
+                }
+                else if (doorway.orientation == Orientation.east)
+                {
+                    //create door gameObject
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    //manipulate the door local position to position it properly
+                    //doorway prefab's door position for East is moved one a unit in x-axis and 1.25 units in the Y axis
+                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance,
+                        doorway.position.y + tileDistance * 1.25f, 0f);
+                }
+                else if (doorway.orientation == Orientation.west)
+                {
+                    //create door gameObject
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    //manipulate the door local position to position it properly
+                    //doorway prefab's door position for West is moved 1 unit * 1.25 units in the Y axis
+                    door.transform.localPosition = new Vector3(doorway.position.x,
+                        doorway.position.y + tileDistance * 1.25f, 0f);
+                }
             }
         }
     }

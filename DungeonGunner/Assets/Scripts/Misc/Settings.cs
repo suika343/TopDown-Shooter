@@ -4,6 +4,12 @@ using UnityEngine;
 
 public static class Settings
 {
+    #region UNITS
+    //values to help calculate where the doorways are
+    public const float pixelsPerUnit = 16f;
+    public const float tileSizePixels = 16f;
+    #endregion
+
     #region DUNGEON BUILDER SETTINGS
     public const int maxDungeonRebuildAttemptsForRoomGraph = 1000;
     public const int maxDungeonRebuildAttempts = 10;
