@@ -249,6 +249,16 @@ public class InstantiatedRoom : MonoBehaviour
                     door.transform.localPosition = new Vector3(doorway.position.x,
                         doorway.position.y + tileDistance * 1.25f, 0f);
                 }
+
+                //Get Door Component
+                Door doorComponent = door.GetComponent<Door>();
+                if (room.roomNodeType.isBossRoom)
+                {
+                    doorComponent.isBossRoomDoor = true;
+
+                    //Lock boss room until the dungeon is cleared
+                    doorComponent.LockDoor();
+                }
             }
         }
     }
