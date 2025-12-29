@@ -98,6 +98,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             Debug.Log("Dungeon Built Successfully!");
         }
 
+        StaticEventHandler.CallRoomChangedEvent(currentRoom);
+
         // Set player position roughly mmidway across the room
         player.gameObject.transform.position = new Vector3((currentRoom.lowerBounds.x + currentRoom.upperBounds.x) / 2f,
             (currentRoom.lowerBounds.y + currentRoom.upperBounds.y) / 2f, 0f);

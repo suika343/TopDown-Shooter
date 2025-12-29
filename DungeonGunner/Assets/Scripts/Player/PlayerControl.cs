@@ -26,6 +26,8 @@ public class PlayerControl : MonoBehaviour
     private void Start()
     {
         waitForFixedUpdate = new WaitForFixedUpdate();
+
+        SetPlayerAnimationSpeed();
     }
 
     private void Update()
@@ -83,6 +85,12 @@ public class PlayerControl : MonoBehaviour
             player.idleEvent.CallIdleEvent();
         }
 
+    }
+
+    private void SetPlayerAnimationSpeed()
+    {
+        //Set animator speed based on player move speed
+        player.animator.speed = moveSpeed / Settings.baseSpeedForPlayerAnimations;
     }
 
     private void PlayerRoll(Vector3 direction)
