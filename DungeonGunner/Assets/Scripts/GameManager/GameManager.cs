@@ -54,6 +54,23 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         player.InitializePlayer(playerDetails);
     }
 
+    private void OnEnable()
+    {
+        //Subscribe to static event handler
+        StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
+    }
+
+    private void OnDisable()
+    {
+        //Subscribe to static event handler
+        StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
+    }
+
+    private void StaticEventHandler_OnRoomChanged(RoomChangedEventArgs roomChangedEventArgs)
+    {
+        SetCurrentRoom(roomChangedEventArgs.room);
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
