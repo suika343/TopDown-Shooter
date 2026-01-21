@@ -98,7 +98,7 @@ public class RoomNodeGraphEditor : EditorWindow
     [OnOpenAsset(0)]
     public static bool OnDoubleClickAsset(int instanceID, int line)
     {
-        RoomNodeGraphSO roomNodeGraph = EditorUtility.InstanceIDToObject(instanceID) as RoomNodeGraphSO;
+        RoomNodeGraphSO roomNodeGraph = EditorUtility.EntityIdToObject(instanceID) as RoomNodeGraphSO;
 
         if(roomNodeGraph != null)
         {

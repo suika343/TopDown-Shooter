@@ -316,7 +316,7 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.9998599
+    width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -790,7 +790,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbdf5a74f1050e142989a19e94d5bf97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolArray: []
+  poolArray:
+  - poolSize: 30
+    prefab: {fileID: 1165870575300029834, guid: 4788811c87a91044884caa9851c6b5db, type: 3}
+    componentType: IFireable
 --- !u!1 &1441963929
 GameObject:
   m_ObjectHideFlags: 0

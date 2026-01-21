@@ -41,6 +41,17 @@ public static class HelperUtilities
         return angleInDegrees;
     }
 
+    /// <summary>
+    /// Get the direction vector from an angle in degrees
+    /// </summary>
+    /// <param name="angleInDegrees"></param>
+    /// <returns></returns>
+    public static Vector3 GetDirectionVectorFromAngle(float angleInDegrees)
+    {
+        Vector3 directionVector = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angleInDegrees), Mathf.Sin(Mathf.Deg2Rad * angleInDegrees), 0f);
+        return directionVector;
+    }
+
     public static AimDirection GetAimDirection(float angleInDegrees)
     {
         AimDirection aimDirection;
