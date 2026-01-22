@@ -15,12 +15,14 @@ using System.Collections;
 [RequireComponent(typeof(Idle))]
 [RequireComponent(typeof(AimWeaponEvent))]
 [RequireComponent(typeof(AimWeapon))]
+[RequireComponent(typeof(SetActiveWeaponEvent))]
 [RequireComponent(typeof(PlayerControl))]
 [RequireComponent(typeof(AnimatePlayer))]
 [RequireComponent(typeof(MovementByVelocityEvent))]
 [RequireComponent(typeof(MovementByVelocity))]
 [RequireComponent(typeof(MovementToPositionEvent))]
 [RequireComponent(typeof(MovementToPosition))]
+[RequireComponent(typeof(ActiveWeapon))]
 [DisallowMultipleComponent]
 #endregion
 public class Player : MonoBehaviour
@@ -34,7 +36,10 @@ public class Player : MonoBehaviour
     [HideInInspector] public IdleEvent idleEvent;
     [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
     [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
+    [HideInInspector] public SetActiveWeaponEvent setActiveWeaponEvent;
+    [HideInInspector] public ActiveWeapon activeWeapon;
 
+    public List<Weapon> weaponList = new List<Weapon>();
     private void Awake()
     {
         // Get components
@@ -46,6 +51,8 @@ public class Player : MonoBehaviour
         aimWeaponEvent = GetComponent<AimWeaponEvent>();
         movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
+        setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
+        activeWeapon = GetComponent<ActiveWeapon>();
     }
 
     /// <summary>
@@ -55,6 +62,8 @@ public class Player : MonoBehaviour
     public void InitializePlayer(PlayerDetailsSO playerDetails)
     {
         this.playerDetails = playerDetails;
+
+        CreatePlayerStartingWeapons();
 
         //Set player Health
         SetPlayerHealth();
@@ -66,5 +75,39 @@ public class Player : MonoBehaviour
     private void SetPlayerHealth()
     {
         health.SetStartingHealth(playerDetails.playerHealthAmount);
+    }
+
+    private void CreatePlayerStartingWeapons()
+    {
+        weaponList.Clear();
+
+        foreach(WeaponDetailsSO weaponDetails in playerDetails.startingWeaponsList)
+        {
+            AddWeaponToPlayer(weaponDetails);
+        }
+    }
+
+    public Weapon AddWeaponToPlayer(WeaponDetailsSO weaponDetails)
+    {
+        Weapon weapon = new Weapon()
+        {
+            weaponDetails = weaponDetails,
+            weaponListPosition = 0,
+            weaponReloadTimer = weaponDetails.weaponReloadTime,
+            weaponClipAmmoRemaining = weaponDetails.weaponClipAmmoCapacity,
+            weaponTotalRemainingAmmo = weaponDetails.weaponAmmoCapacity,
+            isWeaponReloading = false
+        };
+
+        //add weapon to player weapon list
+        weaponList.Add(weapon);
+
+        //set weapon list position
+        weapon.weaponListPosition = weaponList.Count;
+
+        //Set added weapon as active weapon
+        setActiveWeaponEvent.CallSetActiveWeaponEvent(weapon);
+
+        return weapon;
     }
 }
