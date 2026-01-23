@@ -448,6 +448,9 @@ GameObject:
   - component: {fileID: 7095095200789160419}
   - component: {fileID: 6704160492741440215}
   - component: {fileID: 1468435369676365779}
+  - component: {fileID: -2079969186450158106}
+  - component: {fileID: -7327657344240346596}
+  - component: {fileID: 8351235924530028871}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -728,10 +731,13 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
   aimWeaponEvent: {fileID: 0}
+  fireWeaponEvent: {fileID: 0}
+  weaponFiredEvent: {fileID: 0}
   idleEvent: {fileID: 0}
   movementByVelocityEvent: {fileID: 0}
   movementToPositionEvent: {fileID: 0}
   setActiveWeaponEvent: {fileID: 0}
+  activeWeapon: {fileID: 0}
 --- !u!114 &7782761150120999521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,7 +799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60e11b6b806bb240870d9c18fd23d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponShootPosition: {fileID: 4074467297976006340}
   movementDetails: {fileID: 11400000, guid: bded52338247433479f4592c51b504d3, type: 2}
 --- !u!114 &733866403636355896
 MonoBehaviour:
@@ -883,6 +888,42 @@ MonoBehaviour:
   weaponPolygonCollider2D: {fileID: 1835115407353046467}
   weaponShootPositionTransform: {fileID: 4074467297976006340}
   weaponEffectPositionTransform: {fileID: 6705080504624635458}
+--- !u!114 &-2079969186450158106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334715806656250189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc95165e01077246808facc44b4725e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FireWeaponEvent
+--- !u!114 &-7327657344240346596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334715806656250189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c482db4d15f88642b96d38f6ad1cf36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponFiredEvent
+--- !u!114 &8351235924530028871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334715806656250189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7c76c1633c8b94a88dd0cf801769a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FireWeapon
 --- !u!1 &8361669800998201041
 GameObject:
   m_ObjectHideFlags: 0

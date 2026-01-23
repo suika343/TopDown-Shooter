@@ -23,6 +23,9 @@ using System.Collections;
 [RequireComponent(typeof(MovementToPositionEvent))]
 [RequireComponent(typeof(MovementToPosition))]
 [RequireComponent(typeof(ActiveWeapon))]
+[RequireComponent(typeof(FireWeaponEvent))]
+[RequireComponent(typeof(WeaponFiredEvent))]
+[RequireComponent(typeof(FireWeapon))]
 [DisallowMultipleComponent]
 #endregion
 public class Player : MonoBehaviour
@@ -33,6 +36,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public Animator animator;
 
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
+    [HideInInspector] public FireWeaponEvent fireWeaponEvent;
+    [HideInInspector] public WeaponFiredEvent weaponFiredEvent;
     [HideInInspector] public IdleEvent idleEvent;
     [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
     [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
@@ -49,6 +54,8 @@ public class Player : MonoBehaviour
 
         idleEvent = GetComponent<IdleEvent>(); 
         aimWeaponEvent = GetComponent<AimWeaponEvent>();
+        fireWeaponEvent = GetComponent<FireWeaponEvent>();
+        weaponFiredEvent = GetComponent<WeaponFiredEvent>();
         movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
