@@ -25,7 +25,10 @@ using System.Collections;
 [RequireComponent(typeof(ActiveWeapon))]
 [RequireComponent(typeof(FireWeaponEvent))]
 [RequireComponent(typeof(WeaponFiredEvent))]
+[RequireComponent(typeof(ReloadWeaponEvent))]
+[RequireComponent(typeof(WeaponReloadedEvent))]
 [RequireComponent(typeof(FireWeapon))]
+[RequireComponent(typeof(ReloadWeapon))]
 [DisallowMultipleComponent]
 #endregion
 public class Player : MonoBehaviour
@@ -42,7 +45,10 @@ public class Player : MonoBehaviour
     [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
     [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
     [HideInInspector] public SetActiveWeaponEvent setActiveWeaponEvent;
+    [HideInInspector] public ReloadWeaponEvent reloadWeaponEvent;
+    [HideInInspector] public WeaponReloadedEvent weaponReloadedEvent;
     [HideInInspector] public ActiveWeapon activeWeapon;
+    [HideInInspector] public ReloadWeapon reloadWeapon;
 
     public List<Weapon> weaponList = new List<Weapon>();
     private void Awake()
@@ -60,6 +66,9 @@ public class Player : MonoBehaviour
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
         activeWeapon = GetComponent<ActiveWeapon>();
+        reloadWeaponEvent = GetComponent<ReloadWeaponEvent>();
+        weaponReloadedEvent = GetComponent<WeaponReloadedEvent>();
+        reloadWeapon = GetComponent<ReloadWeapon>();
     }
 
     /// <summary>

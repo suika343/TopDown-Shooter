@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Drawing.Text;
 
 [RequireComponent(typeof(Player))]
 [DisallowMultipleComponent]
@@ -160,6 +161,9 @@ public class PlayerControl : MonoBehaviour
 
         //Fire Weapon Input
         FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
+
+        //Reload Weapon Input
+        ReloadWeaponInput();
     }
 
     private void AimWeaponInput(out Vector3 weaponDirection, out float playerAngleDegrees, out float weaponAngleDegrees, out AimDirection playerAimDirection)
@@ -191,6 +195,28 @@ public class PlayerControl : MonoBehaviour
         {
             //trigger fire weapon event
             player.fireWeaponEvent.CallFireWeaponEvent(true, playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
+        }
+    }
+
+    private void ReloadWeaponInput()
+    {
+        Weapon currentWeapon = player.activeWeapon.GetCurrentWeapon();
+
+        //check if weapon can be reloaded
+        //if weapon is currently reloading, return
+        if(currentWeapon.isWeaponReloading)
+            return;
+        //if remaining ammo is less than clip capacity and weapon has no infinite ammo
+        if (currentWeapon.weaponTotalRemainingAmmo < currentWeapon.weaponDetails.weaponClipAmmoCapacity && !currentWeapon.weaponDetails.hasInfiniteAmmo)
+            return;
+        //if clip ammo is full, return
+        if(currentWeapon.weaponClipAmmoRemaining >= currentWeapon.weaponDetails.weaponClipAmmoCapacity)
+            return;
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            //trigger reload weapon event
+            player.reloadWeaponEvent.CallReloadWeaponEvent(player.activeWeapon.GetCurrentWeapon(), 0);
         }
     }
 

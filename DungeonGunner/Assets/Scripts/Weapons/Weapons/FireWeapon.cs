@@ -3,18 +3,21 @@ using UnityEngine;
 [RequireComponent(typeof(ActiveWeapon))]
 [RequireComponent(typeof(FireWeaponEvent))]
 [RequireComponent(typeof(WeaponFiredEvent))]
+[RequireComponent(typeof(ReloadWeaponEvent))]
 public class FireWeapon : MonoBehaviour
 {
     private float fireRateCooldownTimer = 0f;
     private ActiveWeapon activeWeapon;
     private FireWeaponEvent fireWeaponEvent;
     private WeaponFiredEvent weaponFiredEvent;
+    private ReloadWeaponEvent reloadWeaponEvent;
 
     private void Awake()
     {
         activeWeapon = GetComponent<ActiveWeapon>();
         fireWeaponEvent = GetComponent<FireWeaponEvent>();
         weaponFiredEvent = GetComponent<WeaponFiredEvent>();
+        reloadWeaponEvent = GetComponent<ReloadWeaponEvent>();
     }
 
     private void OnEnable()
@@ -62,9 +65,14 @@ public class FireWeapon : MonoBehaviour
         //check if fire rate cooldown timer is finished
         if(fireRateCooldownTimer > 0f)
             return false;
-        //check if there is ammo in the weapon (in clip)
-        if(activeWeapon.GetCurrentWeapon().weaponClipAmmoRemaining <= 0 && !activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity)
+        //check if there is ammo in the weapon (in clip) and weapon does not have infinite clip capacity, reload the weapon instead of firing if there is no ammo
+        if (activeWeapon.GetCurrentWeapon().weaponClipAmmoRemaining <= 0 && !activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity)
+        {
+            //trigger reload weapon event
+            reloadWeaponEvent.CallReloadWeaponEvent(activeWeapon.GetCurrentWeapon(), 0);
+
             return false;
+        }
 
         return true;
     }
