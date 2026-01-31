@@ -108,8 +108,8 @@ public class Player : MonoBehaviour
         Weapon weapon = new Weapon()
         {
             weaponDetails = weaponDetails,
-            weaponListPosition = 0,
-            weaponReloadTimer = weaponDetails.weaponReloadTime,
+            //weaponListPosition = 0,
+            weaponReloadTimer = 0f,
             weaponClipAmmoRemaining = weaponDetails.weaponClipAmmoCapacity,
             weaponTotalRemainingAmmo = weaponDetails.weaponAmmoCapacity,
             isWeaponReloading = false

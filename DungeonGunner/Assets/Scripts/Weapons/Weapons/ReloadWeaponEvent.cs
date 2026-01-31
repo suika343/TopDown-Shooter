@@ -4,11 +4,11 @@ using System;
 [DisallowMultipleComponent]
 public class ReloadWeaponEvent : MonoBehaviour
 {
-    public event Action<ReloadWeaponEvent, ReloadWeaponEventArgs> OnReloadWeaponEvent;
+    public event Action<ReloadWeaponEvent, ReloadWeaponEventArgs> OnReloadWeapon;
 
     public void CallReloadWeaponEvent(Weapon weapon, int topUpAmmoPercent)
     {
-        OnReloadWeaponEvent?.Invoke(this, new ReloadWeaponEventArgs() { weapon = weapon, topUpAmmoPercent = topUpAmmoPercent });
+        OnReloadWeapon?.Invoke(this, new ReloadWeaponEventArgs() { weapon = weapon, topUpAmmoPercent = topUpAmmoPercent });
     }
 }
 

@@ -24,14 +24,14 @@ public class ReloadWeapon : MonoBehaviour
 
     private void OnEnable()
     {
-        reloadWeaponEvent.OnReloadWeaponEvent += ReloadWeaponEvent_OnReloadWeaponEvent;
+        reloadWeaponEvent.OnReloadWeapon += ReloadWeaponEvent_OnReloadWeaponEvent;
 
         setActiveWeaponEvent.OnSetActiveWeapon += SetActiveWeaponEvent_OnSetActiveWeapon;
     }
 
     private void OnDisable()
     {
-        reloadWeaponEvent.OnReloadWeaponEvent -= ReloadWeaponEvent_OnReloadWeaponEvent;
+        reloadWeaponEvent.OnReloadWeapon -= ReloadWeaponEvent_OnReloadWeaponEvent;
 
         setActiveWeaponEvent.OnSetActiveWeapon -= SetActiveWeaponEvent_OnSetActiveWeapon;
     }
