@@ -1,6 +1,8 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing.Text;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Player))]
 [DisallowMultipleComponent]
@@ -163,6 +165,9 @@ public class PlayerControl : MonoBehaviour
         //Fire Weapon Input
         FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
 
+        //Switch Weapon Input
+        SwitchWeaponInput();
+
         //Reload Weapon Input
         ReloadWeaponInput();
     }
@@ -204,6 +209,72 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    private void SwitchWeaponInput()
+    {
+        if(Input.mouseScrollDelta.y < 0f)
+        {
+            PreviousWeapon();
+        }
+        else if(Input.mouseScrollDelta.y >  0f)
+        {
+            NextWeapon();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetWeaponByIndex(1);
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetWeaponByIndex(2);
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetWeaponByIndex(3);
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SetWeaponByIndex(4);
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SetWeaponByIndex(5);
+        }
+
+        #region Weapon 5 - 10
+        
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SetWeaponByIndex(5);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            SetWeaponByIndex(6);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            SetWeaponByIndex(7);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            SetWeaponByIndex(8);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            SetWeaponByIndex(9);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SetWeaponByIndex(10);
+        }
+        #endregion
+
+        else if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            SetWeaponToFirstInList();
+        }
+    }
+ 
     private void ReloadWeaponInput()
     {
         Weapon currentWeapon = player.activeWeapon.GetCurrentWeapon();
@@ -233,6 +304,56 @@ public class PlayerControl : MonoBehaviour
             currentWeaponIndex = weaponIndex;
             player.setActiveWeaponEvent.CallSetActiveWeaponEvent(player.weaponList[weaponIndex - 1]);
         }
+    }
+
+    private void NextWeapon()
+    {
+        currentWeaponIndex++;
+        if(currentWeaponIndex > player.weaponList.Count)
+        {
+            currentWeaponIndex = 1;
+        }
+        SetWeaponByIndex(currentWeaponIndex);
+    }
+
+    private void PreviousWeapon()
+    {
+        currentWeaponIndex--;
+        if(currentWeaponIndex < 1)
+        {
+            currentWeaponIndex = player.weaponList.Count;
+        }
+        SetWeaponByIndex(currentWeaponIndex);
+    }
+
+    /// <summary>
+    /// For reordering of weapons in the weapon list, setting the current weapon to the first position in the list
+    /// </summary>
+    private void SetWeaponToFirstInList()
+    {
+        List<Weapon> tempWeaponList = new List<Weapon>();
+
+        Weapon currentWeapon = player.weaponList[currentWeaponIndex - 1];
+        currentWeapon.weaponListPosition = 1;
+        tempWeaponList.Add(currentWeapon);
+
+        int index = 2;
+
+        foreach(Weapon weapon in player.weaponList)
+        {
+            if(weapon != currentWeapon)
+            {
+                weapon.weaponListPosition = index;
+                tempWeaponList.Add(weapon);
+                index++;
+            }
+        }
+
+        player.weaponList = tempWeaponList;
+
+        currentWeaponIndex = 1;
+
+        SetWeaponByIndex(currentWeaponIndex);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
