@@ -697,8 +697,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    width: 0
+    height: 0
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -1412,6 +1412,9 @@ MonoBehaviour:
   poolArray:
   - poolSize: 30
     prefab: {fileID: 1165870575300029834, guid: 4788811c87a91044884caa9851c6b5db, type: 3}
+    componentType: IFireable
+  - poolSize: 30
+    prefab: {fileID: 1165870575300029834, guid: f5981d1d50d17064d86a91f5de1edefd, type: 3}
     componentType: IFireable
 --- !u!1 &1441963929
 GameObject:
