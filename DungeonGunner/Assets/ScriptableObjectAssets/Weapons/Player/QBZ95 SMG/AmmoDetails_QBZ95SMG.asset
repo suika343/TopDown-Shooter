@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d49b6a703622ee4e81bbe48adbab239, type: 3}
-  m_Name: AmmoDetails_Sniper
+  m_Name: AmmoDetails_QBZ95SMG
   m_EditorClassIdentifier: Assembly-CSharp::AmmoDetailsSO
-  ammoName: GM6 Lynx Ammo
+  ammoName: QBZ95 Assault Rifle Ammo
   isPlayerAmmo: 1
-  ammoSprite: {fileID: 21300000, guid: c3be09077243891458bdbf46a57d2e8a, type: 3}
+  ammoSprite: {fileID: 21300000, guid: e36e8bbd18074d341b170885ac002038, type: 3}
   ammoPrefabArray:
-  - {fileID: 1165870575300029834, guid: f5981d1d50d17064d86a91f5de1edefd, type: 3}
-  ammoMaterial: {fileID: 2100000, guid: 33a55999e44f4724191171c59fc64319, type: 2}
+  - {fileID: 1165870575300029834, guid: 1d1b0a3cab44a2f4ebc78c20bde63584, type: 3}
+  ammoMaterial: {fileID: 2100000, guid: c92da765fb7cca448a71d99956fe00bd, type: 2}
   ammoChargeTime: 0
   ammoChargeMaterial: {fileID: 0}
-  ammoDamage: 13
-  ammoSpeedMin: 25
-  ammoSpeedMax: 25
-  ammoRange: 20
+  ammoDamage: 5
+  ammoSpeedMin: 14
+  ammoSpeedMax: 14
+  ammoRange: 12
   ammoRotationSpeed: 1
-  ammoSpreadMin: 0.5
-  ammoSpreadMax: 1.5
+  ammoSpreadMin: 2
+  ammoSpreadMax: 5
   ammoSpawnAmountMin: 1
   ammoSpawnAmountMax: 1
   ammoSpawnIntervalMin: 0
