@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Audio;
 
 public class GameResources : MonoBehaviour
 {
@@ -62,6 +63,15 @@ public class GameResources : MonoBehaviour
     [Tooltip("Populate with Ammo Icon prefab")]
     #endregion
     public GameObject ammoIconPrefab;
+
+    #region Header SOUNDS
+    [Space(10)]
+    [Header("SOUNDS")]
+    #endregion Header
+    #region Tooltip
+    [Tooltip("Populate with the sounds mixer group")]
+    #endregion
+    public AudioMixerGroup soundsMixerGroup;
 
     #region VALIDATION
 #if UNITY_EDITOR

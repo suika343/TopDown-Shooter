@@ -88,6 +88,13 @@ public static class HelperUtilities
        return aimDirection;
     }
 
+    public static float LinearToDecibel(int linear)
+    {
+        float linearScaleRange = 20f; //conversion factor to scale the linear value to a range that is appropriate for decibel conversion 
+
+        return Mathf.Log10((float) linear / linearScaleRange) * 20f;
+    }
+
     /// <summary>
     /// Empty String Debug Check
     /// <returns></returns>
