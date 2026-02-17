@@ -56,8 +56,13 @@ public class ReloadWeapon : MonoBehaviour
         //set weapon as reloading
         weapon.isWeaponReloading = true;
 
+        if(weapon.weaponDetails.weaponReloadingSoundEffect != null)
+        {
+            SoundEffectManager.Instance.PlaySoundEffect(weapon.weaponDetails.weaponReloadingSoundEffect);
+        }
+
         //Update reload timer
-        while(weapon.weaponReloadTimer < weapon.weaponDetails.weaponReloadTime)
+        while (weapon.weaponReloadTimer < weapon.weaponDetails.weaponReloadTime)
         {
             weapon.weaponReloadTimer += Time.deltaTime;
             yield return null;
@@ -104,6 +109,7 @@ public class ReloadWeapon : MonoBehaviour
         //Call weapon reloaded event
         weaponReloadedEvent.CallOnWeaponReloadedEvent(weapon);
     }
+
 
     private void SetActiveWeaponEvent_OnSetActiveWeapon(SetActiveWeaponEvent setActiveWeaponEvent, SetActiveWeaponEventArgs setActiveWeaponEventArgs)
     {

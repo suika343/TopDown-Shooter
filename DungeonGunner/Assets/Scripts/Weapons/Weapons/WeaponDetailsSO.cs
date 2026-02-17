@@ -1,3 +1,4 @@
+using System.Drawing;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponDetails_", menuName = "Scriptable Objects/Weapons/Weapon Details")]
@@ -28,6 +29,16 @@ public class WeaponDetailsSO : ScriptableObject
     [Tooltip("Weapon current ammo")]
     #endregion    
     public AmmoDetailsSO weaponCurrentAmmo;
+
+    #region Tooltip
+    [Tooltip("Weapon firing sound effect")]
+    #endregion    
+    public SoundEffectSO weaponFiringSoundEffect;
+
+    #region Tooltip
+    [Tooltip("Weapon reloading sound effect")]
+    #endregion    
+    public SoundEffectSO weaponReloadingSoundEffect;
 
     #region HEADER Weapon Operating Values
     [Space(10)]

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e97ffdb3f34374c499616ae9af84398e, type: 3}
+  m_Name: SoundEffect_DoorOpenClose
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectSO
+  soundEffectName: Door Open Close
+  soundPrefab: {fileID: 4056368951179855657, guid: 5da6bcff1819e2b4faf3ffee83aa4d01, type: 3}
+  soundEffectClip: {fileID: 8300000, guid: 7f1653d2178fdc047a95879eb5bc482e, type: 3}
+  soundEffectRandomPitchVariationMin: 0.827
+  soundEffectRandomPitchVariationMax: 1
+  soundEffectVolume: 0.72

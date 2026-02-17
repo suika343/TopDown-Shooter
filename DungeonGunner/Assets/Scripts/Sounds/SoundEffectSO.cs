@@ -23,16 +23,19 @@ public class SoundEffectSO : ScriptableObject
     [Tooltip("The minumum pitch variation for the sound effect. A random pitch variation will be generated between the min" +
         "and the max values.")]
     #endregion
+    [Range(0f, 1.5f)]
     public float soundEffectRandomPitchVariationMin = 0.8f;
     #region Tooltip
     [Tooltip("The maximum pitch variation for the sound effect. A random pitch variation will be generated between the min" +
         "and the max values.")]
     #endregion
+    [Range(0f, 1.5f)]
     public float soundEffectRandomPitchVariationMax = 1.2f;
     #region Tooltip
     [Tooltip("The volume for the sound effect")]
     #endregion
-    public float soundEffectVolume;
+    [Range(0f, 1f)]
+    public float soundEffectVolume = 1;
 
     #region VALIDATION
 #if UNITY_EDITOR

@@ -72,6 +72,10 @@ public class GameResources : MonoBehaviour
     [Tooltip("Populate with the sounds mixer group")]
     #endregion
     public AudioMixerGroup soundsMixerGroup;
+    #region Tooltip
+    [Tooltip("Populate with door opening sound effect")]
+    #endregion
+    public SoundEffectSO doorOpenCloseSoundEffect;
 
     #region VALIDATION
 #if UNITY_EDITOR
@@ -83,6 +87,8 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(litMaterial), litMaterial);
         HelperUtilities.ValidateCheckNullValue(this, nameof(variableLitShader), variableLitShader);
         HelperUtilities.ValidateCheckNullValue(this, nameof(ammoIconPrefab), ammoIconPrefab);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(doorOpenCloseSoundEffect), doorOpenCloseSoundEffect);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(soundsMixerGroup), soundsMixerGroup);
     }
 #endif
 #endregion
