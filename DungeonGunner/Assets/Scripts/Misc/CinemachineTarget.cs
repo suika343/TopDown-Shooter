@@ -1,5 +1,5 @@
 using UnityEngine;
-using Unity.Cinemachine;
+using Cinemachine;
 
 [RequireComponent(typeof(CinemachineTarget))]
 public class CinemachineTarget : MonoBehaviour
@@ -27,21 +27,21 @@ public class CinemachineTarget : MonoBehaviour
     {
         CinemachineTargetGroup.Target cinemachineGroupTarget_player = new CinemachineTargetGroup.Target
         {
-            Object = GameManager.Instance.GetPlayer().transform,
-            Weight = 1,
-            Radius = 2.5f
+            target = GameManager.Instance.GetPlayer().transform,
+            weight = 1,
+            radius = 2.5f
         };
 
         CinemachineTargetGroup.Target cinemachineGroupTarget_cursor = new CinemachineTargetGroup.Target
         {
-            Object = cursorTarget,
-            Weight = 1,
-            Radius = 1f
+            target = cursorTarget,
+            weight = 1,
+            radius = 1f
         };
 
         CinemachineTargetGroup.Target[] cinemachineTargetArray = new CinemachineTargetGroup.Target[] { cinemachineGroupTarget_player, cinemachineGroupTarget_cursor };
 
         // Updated to use the 'Targets' property instead of the obsolete 'm_Targets' field
-        cinemachineTargetGroup.Targets = new System.Collections.Generic.List<CinemachineTargetGroup.Target>(cinemachineTargetArray);
+        cinemachineTargetGroup.m_Targets = cinemachineTargetArray;
     }
 }
