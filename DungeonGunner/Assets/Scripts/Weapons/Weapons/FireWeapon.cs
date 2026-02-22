@@ -151,7 +151,27 @@ public class FireWeapon : MonoBehaviour
         //call weapon fired event
         weaponFiredEvent.CallWeaponFiredEvent(activeWeapon.GetCurrentWeapon());
 
+        WeaponShootEffect(aimAngle);
+
         WeaponSoundEffect();
+    }
+
+    private void WeaponShootEffect(float aimAngle)
+    {
+        if (activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect != null
+            && activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect.weaponShootEffectPrefab != null)
+        {
+            //get object from pool
+            WeaponShootEffect weaponShootEffect =
+                (WeaponShootEffect)PoolManager.Instance.ReuseComponent(activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect.weaponShootEffectPrefab,
+                activeWeapon.GetWeaponShootEffectPosition(), Quaternion.identity);
+
+            //set shoot effect values based on weapon shoot effect scriptable object
+            weaponShootEffect.SetShootEffect(activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect, aimAngle);
+
+            //set the object to active (automatically deactivated after particle system duration)
+            weaponShootEffect.gameObject.SetActive(true);
+        }
     }
 
     private void WeaponSoundEffect()
