@@ -942,13 +942,13 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    width: 0
+    height: 0
   near clip plane: 0.1
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 11.25
+  orthographic size: 8.4375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1790,6 +1790,9 @@ MonoBehaviour:
     componentType: SoundEffect
   - poolSize: 20
     prefab: {fileID: 3377749137430956700, guid: 49b1599c84d3b8d4a9fc18189a7b2146, type: 3}
+    componentType: WeaponShootEffect
+  - poolSize: 20
+    prefab: {fileID: 3377749137430956700, guid: b3d0ea29f0a55c642933b83715c9aaac, type: 3}
     componentType: WeaponShootEffect
 --- !u!1 &1441963929
 GameObject:

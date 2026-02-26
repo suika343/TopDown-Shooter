@@ -213,11 +213,11 @@ public class PlayerControl : MonoBehaviour
     {
         if(Input.mouseScrollDelta.y < 0f)
         {
-            NextWeapon();
+            PreviousWeapon();
         }
         else if(Input.mouseScrollDelta.y >  0f)
         {
-            PreviousWeapon();
+            NextWeapon();
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1))
