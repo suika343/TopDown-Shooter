@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1673894283920757818}
   - component: {fileID: 1304395707768691327}
-  - component: {fileID: 7882641408997631239}
+  - component: {fileID: -546277019610219647}
   - component: {fileID: 5156288682953033702}
   m_Layer: 0
-  m_Name: WeaponShootEffect_Flash
+  m_Name: AmmoHitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f2635b1c99527994cba54b32fd7e9836, type: 2}
+  - {fileID: 2100000, guid: 6f2b97540fc06164c932cb2bfc0db6de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,7 +114,7 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &7882641408997631239
+--- !u!114 &-546277019610219647
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,9 +123,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3377749137430956700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53547bac51509734c8ab172a50aa9a47, type: 3}
+  m_Script: {fileID: 11500000, guid: 9369d0503b955264397a83c9a7c2e01b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponAmmoHitEffect
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoHitEffect
 --- !u!198 &5156288682953033702
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.5
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -262,7 +262,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -380,7 +380,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
