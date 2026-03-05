@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1018597458887433902, guid: 2118807bf88e0194ba1d7d6d8235a887, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 34e8d9a39874e5e4dafae7864069e02b, type: 2}
     - target: {fileID: 1366726310536883749, guid: 2118807bf88e0194ba1d7d6d8235a887, type: 3}
       propertyPath: m_Name
       value: Slizzard
