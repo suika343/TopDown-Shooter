@@ -16,6 +16,8 @@ public class InstantiatedRoom : MonoBehaviour
     [HideInInspector] public Tilemap collisionTilemap;
     [HideInInspector] public Tilemap minimapTilemap;
     [HideInInspector] public Bounds roomColliderBounds;
+    //2D array to store movement penalties from tilemaps to be used in A Star PathFinding
+    [HideInInspector] public int[,] aStarMovementPenalty;
 
     private BoxCollider2D boxCollider2D;
 
@@ -47,6 +49,7 @@ public class InstantiatedRoom : MonoBehaviour
     {
         PopulateTilemapVariables(roomGameObject);
         BlockOffUnusedDoorways();
+        AddObstaclesAndPreferredPaths();
         AddDoorsToRooms();
         DisableCollisionTilemapRenderer();
     }
@@ -201,6 +204,42 @@ public class InstantiatedRoom : MonoBehaviour
 
                 //set rotation of the tile copied
                 tilemap.SetTransformMatrix(new Vector3Int(startPosition.x + xPos, startPosition.y - yPos - 1, 0), transformMatrix);
+            }
+        }
+    }
+
+    private void AddObstaclesAndPreferredPaths()
+    {
+        //array will be populated with obstacles
+        int roomSizeX = room.templateUpperBounds.x - room.templateLowerBounds.x + 1;
+        int roomSizeY = room.templateUpperBounds.y - room.templateLowerBounds.y + 1;
+        aStarMovementPenalty = new int[roomSizeX, roomSizeY];
+
+        for(int x = 0; x < roomSizeX; x++)
+        {
+            for(int y = 0; y < roomSizeY; y++)
+            {
+                //default A Star movement penalty
+                aStarMovementPenalty[x, y] = Settings.defaultAStarMovementPenalty;
+
+                //Add obstacles for collision tiles the enemy can't walk on
+                TileBase tile = collisionTilemap.GetTile(new Vector3Int(x + room.templateLowerBounds.x, y + room.templateLowerBounds.y, 0));
+
+
+                //Add preferred path for enemies 
+                if(tile == GameResources.Instance.preferredEnemyPathTile)
+                {
+                    aStarMovementPenalty[x, y] = Settings.preferredPathAStarMovementPenalty;
+                }
+
+                foreach (TileBase collissionTile in GameResources.Instance.enemyUnwalkableCollisionTilesArray) {
+                    if (tile == collissionTile)
+                    {
+                        //set A Star Movement penalty to 0 if tile is a collision tile
+                        aStarMovementPenalty[x, y] = 0;
+                        break;
+                    }
+                }
             }
         }
     }

@@ -83,7 +83,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         HandleGameState();
 
         //testing
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Numlock))
         {
             gameState = GameState.gameStarted;
         }

@@ -47,8 +47,14 @@ public static class Settings
     #endregion
 
     #region FIRING CONTROL
-    public const float useAimAngleDistance = 3.5f; // if the target distance is less than this, then the aim angle will be used (calculated from player),
-                                                   //else the weapon aim angle will be used (calculated from weapon position)
+    // if the target distance is less than this, then the aim angle will be used (calculated from player),
+    //else the weapon aim angle will be used (calculated from weapon position)
+    public const float useAimAngleDistance = 3.5f;
+    #endregion
+
+    #region A STAR PATHFINDING PARAMETERS
+    public const int defaultAStarMovementPenalty = 40;
+    public const int preferredPathAStarMovementPenalty = 1;
     #endregion
 
     #region UI Params
