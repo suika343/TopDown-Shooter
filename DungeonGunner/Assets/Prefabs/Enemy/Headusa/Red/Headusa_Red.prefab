@@ -60,10 +60,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4020456923506416311, guid: bd890eda6d5c8e349a64abbf0e81ef85, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e96def32fbf0c74787dde8fc93e359b, type: 2}
     - target: {fileID: 4649546593193370435, guid: bd890eda6d5c8e349a64abbf0e81ef85, type: 3}
       propertyPath: m_Name
       value: Headusa_Red
       objectReference: {fileID: 0}
+    - target: {fileID: 7416910901313483095, guid: bd890eda6d5c8e349a64abbf0e81ef85, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 2284c9ce7dc78304cb2b801e93e0657d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

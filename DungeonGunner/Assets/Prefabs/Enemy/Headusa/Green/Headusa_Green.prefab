@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Headusa_Green
       objectReference: {fileID: 0}
+    - target: {fileID: 2659856968902629831, guid: 894ae171dff937043aeae6d2d4ddb42e, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: e0ef3b6c41a32af4eb52641c1a5fadc5, type: 2}
     - target: {fileID: 5956369523499784377, guid: 894ae171dff937043aeae6d2d4ddb42e, type: 3}
       propertyPath: m_Color.b
       value: 0.3658043
@@ -64,6 +68,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8488182196498526759, guid: 894ae171dff937043aeae6d2d4ddb42e, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 8dca0eb420671bd49b399b1eaf047fff, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

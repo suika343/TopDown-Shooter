@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5431553904048128975, guid: 2118807bf88e0194ba1d7d6d8235a887, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: fe3b3c37d7ed8eb41be1b82b774f95c2, type: 2}
     - target: {fileID: 1018597458887433902, guid: 2118807bf88e0194ba1d7d6d8235a887, type: 3}
       propertyPath: m_Controller
       value: 
@@ -172,6 +176,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7330347188604377041, guid: 2118807bf88e0194ba1d7d6d8235a887, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b90668615fd0c649be12f00fed75212, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

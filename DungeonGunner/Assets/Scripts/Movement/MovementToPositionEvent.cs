@@ -17,6 +17,17 @@ public class MovementToPositionEvent : MonoBehaviour
             isRolling = isRolling
         });
     }
+
+    public void CallMovementToPositionEvent(Vector3 movePosition, Vector3 currentPosition, float moveSpeed, Vector2 moveDirection)
+    {
+        OnMovementToPosition?.Invoke(this, new MovementToPositionArgs()
+        {
+            movePosition = movePosition,
+            currentPosition = currentPosition,
+            moveSpeed = moveSpeed,
+            moveDirection = moveDirection
+        });
+    }
 }
 
 public class MovementToPositionArgs : EventArgs
