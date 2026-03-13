@@ -146,6 +146,11 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         return playerDetails.playerMinimapIcon;
     }
 
+    public DungeonLevelSO GetDungeonLevel()
+    {
+        return dungeonLevelList[currentDungeonLevelListIndex];
+    }
+
     #region VALIDATION
 #if UNITY_EDITOR
     private void OnValidate()

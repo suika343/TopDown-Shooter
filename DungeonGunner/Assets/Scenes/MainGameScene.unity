@@ -961,7 +961,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1912,6 +1912,7 @@ GameObject:
   - component: {fileID: 1496627211}
   - component: {fileID: 1496627210}
   - component: {fileID: 1496627212}
+  - component: {fileID: 1496627213}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1938,7 +1939,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 11121dca52b83b742b0aa2486cc1c99a, type: 2}
   - {fileID: 11400000, guid: a7c126bfa2eab1b439afc704108f656d, type: 2}
   - {fileID: 11400000, guid: 2e5a9995ff791df4c8411b9c0f230b41, type: 2}
-  currentDungeonLevelListIndex: 0
+  currentDungeonLevelListIndex: 2
   gameState: 0
 --- !u!4 &1496627211
 Transform:
@@ -1963,6 +1964,19 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496627209}
   m_Enabled: 1
+--- !u!114 &1496627213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496627209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2a99f79bce5744587852e9efd28ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnTest
+  roomTemplateSO: {fileID: 11400000, guid: 5ec7c3fd29261984abd0f0a91400645d, type: 2}
 --- !u!1 &1534489037
 GameObject:
   m_ObjectHideFlags: 0

@@ -72,6 +72,17 @@ public class RoomTemplateSO : ScriptableObject
 
     public Vector2Int[] spawnPositionArray;
 
+    #region Header Enemy Details
+
+    [Space(10)]
+    [Header("Enemy Details")]
+
+    #endregion Header Enemy Details
+    #region Tooltip
+    [Tooltip("Populate this list with all the enemies that can be spawned in this room by level" +
+        "including the ratio if this enemy type that will be spawned")]
+    #endregion
+    public List<SpawnableObjectsByLevel<EnemyDetailsSO>> enemiesByLevelList;
     /// <summary>
     /// Returns the list of Entrances for the room template
     /// </summary>

@@ -115,7 +115,6 @@ public static class HelperUtilities
     {
         if (objectToCheck == null)
         {
-            Debug.Log(fieldName + " is null and must contain a value in object " + thisObject.name.ToString());
             return true;
         }
         return false;

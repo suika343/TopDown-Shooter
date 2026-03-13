@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 5033654537741278108}
   - component: {fileID: 8013214457795510388}
   - component: {fileID: -7316718108752464361}
+  - component: {fileID: 168660618890483518}
   m_Layer: 15
   m_Name: Enemy
   m_TagString: Untagged
@@ -333,6 +334,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b2aef1a0f8f044c81d6f995edb80fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Idle
+--- !u!114 &168660618890483518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82b4bd055e5a5694e98c292e70aa19c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimateEnemy
 --- !u!1 &1744929284956513380
 GameObject:
   m_ObjectHideFlags: 0
