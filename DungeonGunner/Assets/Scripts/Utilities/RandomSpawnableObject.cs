@@ -30,7 +30,7 @@ public class RandomSpawnableObject<T>
         foreach (SpawnableObjectsByLevel<T> spawnableObjectByLevel in spawnableObjectsByLevelList)
         {
             //check if current level is the same as the one in the list
-            if (spawnableObjectByLevel.dungeonLevelSO == GameManager.Instance.GetDungeonLevel())
+            if (spawnableObjectByLevel.dungeonLevel == GameManager.Instance.GetDungeonLevel())
             {
                 foreach (SpawnableObjectRatio<T> spawnableObjectRatio in spawnableObjectByLevel.spawnableObjectsRatioList)
                 {

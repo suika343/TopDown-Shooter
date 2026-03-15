@@ -1939,7 +1939,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 11121dca52b83b742b0aa2486cc1c99a, type: 2}
   - {fileID: 11400000, guid: a7c126bfa2eab1b439afc704108f656d, type: 2}
   - {fileID: 11400000, guid: 2e5a9995ff791df4c8411b9c0f230b41, type: 2}
-  currentDungeonLevelListIndex: 2
+  currentDungeonLevelListIndex: 0
   gameState: 0
 --- !u!4 &1496627211
 Transform:
@@ -1976,7 +1976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2a99f79bce5744587852e9efd28ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnTest
-  roomTemplateSO: {fileID: 11400000, guid: 5ec7c3fd29261984abd0f0a91400645d, type: 2}
 --- !u!1 &1534489037
 GameObject:
   m_ObjectHideFlags: 0

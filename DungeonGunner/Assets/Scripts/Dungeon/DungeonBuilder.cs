@@ -609,7 +609,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         }
     }
 
-    private RoomTemplateSO GetRoomTemplate(string roomTemplateID)
+    public RoomTemplateSO GetRoomTemplate(string roomTemplateID)
     {
         if(roomTemplateDictionary.TryGetValue(roomTemplateID, out RoomTemplateSO roomTemplate))
         {

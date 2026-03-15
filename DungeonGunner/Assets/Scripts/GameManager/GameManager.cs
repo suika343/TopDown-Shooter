@@ -117,7 +117,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         StaticEventHandler.CallRoomChangedEvent(currentRoom);
 
-        // Set player position roughly mmidway across the room
+        // Set player position roughly midway across the room
         player.gameObject.transform.position = new Vector3((currentRoom.lowerBounds.x + currentRoom.upperBounds.x) / 2f,
             (currentRoom.lowerBounds.y + currentRoom.upperBounds.y) / 2f, 0f);
 
