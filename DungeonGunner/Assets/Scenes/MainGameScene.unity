@@ -1377,6 +1377,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738415947}
   m_CullTransparentMesh: 0
+--- !u!1 &827431565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 827431567}
+  - component: {fileID: 827431566}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &827431566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827431565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8a9a48c8cfbf64fbc4b25500a1b64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+--- !u!4 &827431567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827431565}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -27.05069, y: 1.84332, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &849115870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1939,8 +1983,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 11121dca52b83b742b0aa2486cc1c99a, type: 2}
   - {fileID: 11400000, guid: a7c126bfa2eab1b439afc704108f656d, type: 2}
   - {fileID: 11400000, guid: 2e5a9995ff791df4c8411b9c0f230b41, type: 2}
-  currentDungeonLevelListIndex: 0
+  currentDungeonLevelListIndex: 5
   gameState: 0
+  previousGameState: 0
 --- !u!4 &1496627211
 Transform:
   m_ObjectHideFlags: 0
@@ -3023,3 +3068,4 @@ SceneRoots:
   - {fileID: 1591925168}
   - {fileID: 1342475303}
   - {fileID: 1537700201}
+  - {fileID: 827431567}

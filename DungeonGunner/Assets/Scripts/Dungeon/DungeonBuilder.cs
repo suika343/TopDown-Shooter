@@ -499,6 +499,9 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         room.spawnPositionArray = roomTemplate.spawnPositionArray;
         room.templateLowerBounds = roomTemplate.lowerBounds;
         room.templateUpperBounds = roomTemplate.upperBounds;
+        //ememy spawn details and parameters
+        room.enemiesByLevelList = roomTemplate.enemiesByLevelList;
+        room.roomLevelEnemySpawnParametersList = roomTemplate.roomEnemySpawnParametersList;
 
         room.childRoomIDList = CopyStringList(roomNode.childRoomNodeIDList);
         room.doorwayList = CopyDoorwayList(roomTemplate.GetDoorwayList());
@@ -517,6 +520,12 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         else
         {
             room.parentRoomID = roomNode.parentRoomNodeIDList[0];
+        }
+
+        //if there are no enemies to spawn then mark the room as clear of enemies
+        if (room.GetNumberOfEnemiesToSpawn(GameManager.Instance.GetDungeonLevel()) == 0)
+        {
+            room.isClearOfEnemies = true;
         }
 
         return room;

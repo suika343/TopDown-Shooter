@@ -13,12 +13,12 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(MovementToPositionEvent))]
 [RequireComponent(typeof(IdleEvent))]
 [RequireComponent(typeof(Idle))]
-
+[RequireComponent(typeof(AnimateEnemy))]
 #endregion
 [DisallowMultipleComponent]
 public class Enemy : MonoBehaviour
 {
-    public EnemyDetailsSO enemyDetails;
+    [HideInInspector] public EnemyDetailsSO enemyDetails;
     private EnemyMovementAI enemyMovementAI;
     [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
     [HideInInspector] public IdleEvent idleEvent;
@@ -36,5 +36,20 @@ public class Enemy : MonoBehaviour
         enemyMovementAI = GetComponent<EnemyMovementAI>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         idleEvent = GetComponent<IdleEvent>();
+    }
+
+    public void InitializeEnemy(EnemyDetailsSO enemyDetails, int enemySpawnNumber, DungeonLevelSO dungeonLevel)
+    {
+        this.enemyDetails = enemyDetails;
+
+        SetEnemyAnimationSpeed();
+
+    }
+
+    private void SetEnemyAnimationSpeed()
+    {
+        //Set the animation speed based on the move speed of the enemy
+        float animationSpeed = enemyMovementAI.moveSpeed / Settings.baseSpeedForEnemyAnimations;
+        animator.speed = animationSpeed;
     }
 }

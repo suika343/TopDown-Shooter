@@ -257,7 +257,7 @@ public class InstantiatedRoom : MonoBehaviour
         //loop through each doorway in the room
         foreach (Doorway doorway in room.doorwayList)
         {
-            //check uif the doorway is connected and if there is a door prefab
+            //check if the doorway is connected and if there is a door prefab
             if(doorway.isConnected && doorway.doorPrefab != null)
             {
                 float tileDistance = Settings.tileSizePixels / Settings.pixelsPerUnit;
@@ -312,6 +312,25 @@ public class InstantiatedRoom : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void LockDoors()
+    {
+        Door[] doorArray = GetComponentsInChildren<Door>();
+
+        //trigger lock door function for each door in the room
+        foreach (Door door in doorArray)
+        {
+            door.LockDoor();
+        }
+
+        //Disable door trigger collider
+        DisableRoomCollider();  
+    }
+
+    public void DisableRoomCollider()
+    {
+        boxCollider2D.enabled = false;
     }
 
     private void DisableCollisionTilemapRenderer()

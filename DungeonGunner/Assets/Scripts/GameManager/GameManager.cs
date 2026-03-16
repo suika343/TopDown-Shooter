@@ -29,8 +29,10 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private PlayerDetailsSO playerDetails;
     private Player player;
 
-    [SerializeField]
-    private GameState gameState;
+    //[HideInInspector]
+    public GameState gameState;
+    //[HideInInspector]
+    public GameState previousGameState;
 
     protected override void Awake()
     {
@@ -75,6 +77,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private void Start()
     {
         gameState = GameState.gameStarted;
+        previousGameState = GameState.gameStarted;
     }
 
     // Update is called once per frame
