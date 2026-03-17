@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
     public void InitializeEnemy(EnemyDetailsSO enemyDetails, int enemySpawnNumber, DungeonLevelSO dungeonLevel)
     {
         this.enemyDetails = enemyDetails;
-
+        SetEnemyMovementUdpateFrame(enemySpawnNumber);
         SetEnemyAnimationSpeed();
 
     }
@@ -51,5 +51,10 @@ public class Enemy : MonoBehaviour
         //Set the animation speed based on the move speed of the enemy
         float animationSpeed = enemyMovementAI.moveSpeed / Settings.baseSpeedForEnemyAnimations;
         animator.speed = animationSpeed;
+    }
+
+    private void SetEnemyMovementUdpateFrame(int enemySpawnNumber)
+    {
+        enemyMovementAI.SetUpdateFrameNumber(enemySpawnNumber % Settings.targetFrameRateToSpreadPathFindingOver);
     }
 }

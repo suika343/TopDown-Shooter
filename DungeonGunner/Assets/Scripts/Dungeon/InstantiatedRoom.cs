@@ -317,7 +317,7 @@ public class InstantiatedRoom : MonoBehaviour
     public void LockDoors()
     {
         Door[] doorArray = GetComponentsInChildren<Door>();
-
+        //Debug.Log("num of doors: " + doorArray.Length);
         //trigger lock door function for each door in the room
         foreach (Door door in doorArray)
         {
