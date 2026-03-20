@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8013214457795510388}
   - component: {fileID: -7316718108752464361}
   - component: {fileID: 168660618890483518}
+  - component: {fileID: -2349817209032645843}
   m_Layer: 15
   m_Name: Enemy
   m_TagString: Untagged
@@ -286,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovementAI
   movementDetails: {fileID: 11400000, guid: 62d200f1460db1a428cd5e822b11009c, type: 2}
   moveSpeed: 0
+  updateFrameNumber: 1
 --- !u!114 &5088163044986477072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +348,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b4bd055e5a5694e98c292e70aa19c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimateEnemy
+--- !u!114 &-2349817209032645843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9b2adf10cc6ea4fa3a9a99fe01a7dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaterializeEffect
 --- !u!1 &1744929284956513380
 GameObject:
   m_ObjectHideFlags: 0

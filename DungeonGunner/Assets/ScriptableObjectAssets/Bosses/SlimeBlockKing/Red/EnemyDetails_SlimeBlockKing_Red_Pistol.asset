@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetailsSO
   enemyName: Slime Block King Red
   enemyPrefab: {fileID: 1373861746257872607, guid: 65faa4a8ff50a824e81921d0099b61bc, type: 3}
+  chaseDistance: 50
+  enemyStandardMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  enemyMaterializeEffectTime: 2
+  enemyMaterializeShader: {fileID: -6465566751694194690, guid: 5fec8f8e6ea244648a3c6ede24a56288, type: 3}
+  enemyMaterializeColor: {r: 4.237095, g: 0, b: 3.0613565, a: 1}
