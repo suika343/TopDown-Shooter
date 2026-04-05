@@ -13,33 +13,34 @@ public class AnimateEnemy : MonoBehaviour
     {
         enemy.movementToPositionEvent.OnMovementToPosition += MovementToPositionEvent_OnMovementToPosition;
 
+        enemy.aimWeaponEvent.OnWeaponAim += AimWeaponEvent_OnWeaponAim;
+
         enemy.idleEvent.OnIdle += IdleEvent_OnIdle;
     }
 
-    private void Disable()
+    private void OnDisable()
     {
         enemy.movementToPositionEvent.OnMovementToPosition -= MovementToPositionEvent_OnMovementToPosition;
+
+        enemy.aimWeaponEvent.OnWeaponAim -= AimWeaponEvent_OnWeaponAim;
 
         enemy.idleEvent.OnIdle -= IdleEvent_OnIdle;
     }
 
     private void MovementToPositionEvent_OnMovementToPosition(MovementToPositionEvent movementToPositionEvent, MovementToPositionArgs movementToPositionArgs)
     {
-        if(enemy.transform.position.x < GameManager.Instance.GetPlayer().transform.position.x)
-        {
-            SetWeaponAimDirectionAnimationParameters(AimDirection.Right);
-        }
-        else
-        {
-            SetWeaponAimDirectionAnimationParameters(AimDirection.Left);
-        }
-
         SetMovementAnimationParameters();
     }
 
     private void IdleEvent_OnIdle(IdleEvent idleEvent)
     {
         SetIdleAnimationParameters();
+    }
+
+    private void AimWeaponEvent_OnWeaponAim(AimWeaponEvent aimWeaponEvent, AimWeaponEventArgs aimWeaponEventArgs)
+    {
+        InitializeAnimationParameters();
+        SetWeaponAimDirectionAnimationParameters(aimWeaponEventArgs.aimDirection);
     }
 
     private void InitializeAnimationParameters()
@@ -65,7 +66,6 @@ public class AnimateEnemy : MonoBehaviour
 
     private void SetWeaponAimDirectionAnimationParameters(AimDirection aimDirection)
     {
-        InitializeAnimationParameters();
         switch (aimDirection)
         {
             case AimDirection.Up:

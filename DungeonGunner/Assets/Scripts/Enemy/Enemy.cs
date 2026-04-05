@@ -16,6 +16,17 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(IdleEvent))]
 [RequireComponent(typeof(Idle))]
 [RequireComponent(typeof(AnimateEnemy))]
+[RequireComponent(typeof(EnemyWeaponAI))]
+[RequireComponent(typeof(AimWeaponEvent))]
+[RequireComponent(typeof(AimWeapon))]
+[RequireComponent(typeof(FireWeaponEvent))]
+[RequireComponent(typeof(FireWeapon))]
+[RequireComponent(typeof(SetActiveWeaponEvent))]
+[RequireComponent(typeof(ActiveWeapon))]
+[RequireComponent(typeof(WeaponFiredEvent))]
+[RequireComponent(typeof(ReloadWeaponEvent))]
+[RequireComponent(typeof(ReloadWeapon))]
+[RequireComponent(typeof(WeaponReloadedEvent))]
 #endregion
 [DisallowMultipleComponent]
 public class Enemy : MonoBehaviour
@@ -23,6 +34,9 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public EnemyDetailsSO enemyDetails;
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
     [HideInInspector] public FireWeaponEvent fireWeaponEvent;
+    private FireWeapon fireWeapon;
+    private SetActiveWeaponEvent setActiveWeaponEvent;
+
 
     private EnemyMovementAI enemyMovementAI;
     [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
@@ -44,12 +58,17 @@ public class Enemy : MonoBehaviour
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         idleEvent = GetComponent<IdleEvent>();
         materializeEffect = GetComponent<MaterializeEffect>();
+        fireWeapon = GetComponent<FireWeapon>();
+        setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
+        aimWeaponEvent = GetComponent<AimWeaponEvent>();
+        fireWeaponEvent = GetComponent<FireWeaponEvent>();
     }
 
     public void InitializeEnemy(EnemyDetailsSO enemyDetails, int enemySpawnNumber, DungeonLevelSO dungeonLevel)
     {
         this.enemyDetails = enemyDetails;
         SetEnemyMovementUdpateFrame(enemySpawnNumber);
+        SetEnemyStartingWeapon();
         SetEnemyAnimationSpeed();
         //MaterializeEnemy
         StartCoroutine(MaterializeEnemy());
@@ -65,6 +84,22 @@ public class Enemy : MonoBehaviour
     private void SetEnemyMovementUdpateFrame(int enemySpawnNumber)
     {
         enemyMovementAI.SetUpdateFrameNumber(enemySpawnNumber % Settings.targetFrameRateToSpreadPathFindingOver);
+    }
+
+    private void SetEnemyStartingWeapon()
+    {
+        if(enemyDetails.enemyWeapon != null)
+        {
+            Weapon weapon = new Weapon()
+            {
+                weaponDetails = enemyDetails.enemyWeapon,
+                weaponReloadTimer = 0f,
+                weaponClipAmmoRemaining = enemyDetails.enemyWeapon.weaponClipAmmoCapacity,
+                weaponTotalRemainingAmmo = enemyDetails.enemyWeapon.weaponAmmoCapacity,
+                isWeaponReloading = false
+            };
+            setActiveWeaponEvent.CallSetActiveWeaponEvent(weapon);
+        }
     }
 
     private IEnumerator MaterializeEnemy()
@@ -87,5 +122,8 @@ public class Enemy : MonoBehaviour
 
         //Movement AI
         enemyMovementAI.enabled = enable;
+
+        //fire weapon
+        fireWeapon.enabled = enable;
     }
 }

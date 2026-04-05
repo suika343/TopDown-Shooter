@@ -23,6 +23,17 @@ GameObject:
   - component: {fileID: -7316718108752464361}
   - component: {fileID: 168660618890483518}
   - component: {fileID: -2349817209032645843}
+  - component: {fileID: 7661674760478868823}
+  - component: {fileID: 3628406087118670134}
+  - component: {fileID: 1255678454091977865}
+  - component: {fileID: 5348393290996275501}
+  - component: {fileID: 370777956801130876}
+  - component: {fileID: 7361781963847687028}
+  - component: {fileID: 8517099492018525590}
+  - component: {fileID: 9124027516157404531}
+  - component: {fileID: 3253613446772152358}
+  - component: {fileID: 829625155411515213}
+  - component: {fileID: 470280666371423067}
   m_Layer: 15
   m_Name: Enemy
   m_TagString: Untagged
@@ -60,6 +71,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   enemyDetails: {fileID: 0}
+  aimWeaponEvent: {fileID: 0}
+  fireWeaponEvent: {fileID: 0}
   movementToPositionEvent: {fileID: 0}
   idleEvent: {fileID: 0}
   spriteRendererArray: []
@@ -360,6 +373,147 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a9b2adf10cc6ea4fa3a9a99fe01a7dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaterializeEffect
+--- !u!114 &7661674760478868823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057fe70686cbc774eab701151e9efffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyWeaponAI
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 9216
+  weaponShootPosition: {fileID: 283941161882043543}
+--- !u!114 &3628406087118670134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a1ab1913120a04d9deff9646156a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AimWeaponEvent
+--- !u!114 &1255678454091977865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2108541de4bc74eba753256dff62fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AimWeapon
+  weaponRotationPointTransform: {fileID: 6524512693713153708}
+--- !u!114 &5348393290996275501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc95165e01077246808facc44b4725e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FireWeaponEvent
+--- !u!114 &370777956801130876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7c76c1633c8b94a88dd0cf801769a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FireWeapon
+--- !u!114 &7361781963847687028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dfb1d9adb8f7234598f523bebc1cd6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SetActiveWeaponEvent
+--- !u!114 &8517099492018525590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8213ed8a925bce9409e8f3e3ba1900dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveWeapon
+  weaponSpriteRenderer: {fileID: 8014635963605089163}
+  weaponPolygonCollider2D: {fileID: 8624965247512029842}
+  weaponShootPositionTransform: {fileID: 283941161882043543}
+  weaponEffectPositionTransform: {fileID: 8551467520810735541}
+--- !u!114 &9124027516157404531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c482db4d15f88642b96d38f6ad1cf36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponFiredEvent
+--- !u!114 &3253613446772152358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b3ad0702bff2f48abcf692eeeaa615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReloadWeaponEvent
+--- !u!114 &829625155411515213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e3ef83b77c3ed4c829c9f0446d769b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponReloadedEvent
+--- !u!114 &470280666371423067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f50ac49c6ad3541a2ceffea4ea87ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReloadWeapon
 --- !u!1 &1744929284956513380
 GameObject:
   m_ObjectHideFlags: 0
