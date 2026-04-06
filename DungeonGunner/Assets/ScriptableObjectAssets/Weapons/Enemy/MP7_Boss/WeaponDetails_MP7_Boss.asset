@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f72a8ee32152db24db17cb8d1a114cd0, type: 3}
+  m_Name: WeaponDetails_MP7_Boss
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponDetailsSO
+  weaponName: MP7 Boss
+  weaponSprite: {fileID: 21300000, guid: 275db547fedda054295b08f3897e1a97, type: 3}
+  weaponShootPosition: {x: 1.91, y: 0.49, z: 0}
+  weaponCurrentAmmo: {fileID: 11400000, guid: 536956a90139e36449c8d28825d0b932, type: 2}
+  weaponShootEffect: {fileID: 11400000, guid: 46fd5a4a4850b7a458e81c3b69bf0aaf, type: 2}
+  weaponFiringSoundEffect: {fileID: 11400000, guid: 6c3cc0ff30801ed488e668d4bc087c3f, type: 2}
+  weaponReloadingSoundEffect: {fileID: 11400000, guid: f9701fba1c12e8842ac91f8230f3f425, type: 2}
+  hasInfiniteAmmo: 1
+  hasInfiniteClipCapacity: 1
+  weaponClipAmmoCapacity: 0
+  weaponAmmoCapacity: 0
+  weaponFireRate: 0.15
+  weaponPrechargeTime: 0
+  weaponReloadTime: 0
