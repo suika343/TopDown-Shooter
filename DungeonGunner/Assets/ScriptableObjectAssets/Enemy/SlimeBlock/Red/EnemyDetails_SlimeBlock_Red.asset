@@ -19,3 +19,9 @@ MonoBehaviour:
   enemyMaterializeEffectTime: 2.5
   enemyMaterializeShader: {fileID: -6465566751694194690, guid: 5fec8f8e6ea244648a3c6ede24a56288, type: 3}
   enemyMaterializeColor: {r: 1.1087623, g: 3.635286, b: 1.7085845, a: 0}
+  enemyWeapon: {fileID: 11400000, guid: 9ef0e2bc75c73714e99e7b7c962a9860, type: 2}
+  firingIntervalMin: 1
+  firingIntervalMax: 1.5
+  firingDurationMin: 4
+  firingDurationMax: 8
+  isFiringLineOfSightRequired: 1
