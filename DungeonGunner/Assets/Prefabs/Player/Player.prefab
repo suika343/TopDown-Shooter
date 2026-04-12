@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 8917428941541883496}
   - component: {fileID: 8679175791315524975}
   - component: {fileID: 3393989205393367193}
+  - component: {fileID: -7163277586388991267}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -743,6 +744,7 @@ MonoBehaviour:
   reloadWeaponEvent: {fileID: 0}
   weaponReloadedEvent: {fileID: 0}
   activeWeapon: {fileID: 0}
+  reloadWeapon: {fileID: 0}
 --- !u!114 &7782761150120999521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,6 +967,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f50ac49c6ad3541a2ceffea4ea87ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReloadWeapon
+--- !u!114 &-7163277586388991267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334715806656250189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca55ad5c260e69a4cbd0d9e7f58b63b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthEvent
 --- !u!1 &8361669800998201041
 GameObject:
   m_ObjectHideFlags: 0
