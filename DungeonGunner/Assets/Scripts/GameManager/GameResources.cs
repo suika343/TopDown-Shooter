@@ -77,6 +77,10 @@ public class GameResources : MonoBehaviour
     [Tooltip("Populate with Ammo Icon prefab")]
     #endregion
     public GameObject ammoIconPrefab;
+    #region Tooltip
+    [Tooltip("Populate with Heart prefab")]
+    #endregion
+    public GameObject heartPrefab;
 
     #region Header SOUNDS
     [Space(10)]
