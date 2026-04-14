@@ -31,6 +31,15 @@ public class PlayerDetailsSO : ScriptableObject
     [Tooltip("Player starting health amount.")]
     #endregion
     public int playerHealthAmount;
+    #region Tooltip
+    [Tooltip("Select if player has post-hit immunity")]
+    #endregion
+    public bool isImmuneAfterHit;
+    #region Tooltip
+    [Tooltip("Post hit immunity time in seconds")]
+    #endregion
+    public float hitImmunityTime;
+
 
     #region Header WEAPON
     [Space(10)]
@@ -57,6 +66,7 @@ public class PlayerDetailsSO : ScriptableObject
     [Tooltip("Player hand sprite.")]
     #endregion
     public Sprite playerHandSprite;
+
     #region VALIDATION
 #if UNITY_EDITOR
     private void OnValidate()
@@ -72,6 +82,11 @@ public class PlayerDetailsSO : ScriptableObject
         //weapons
         HelperUtilities.ValidateCheckNullValue(this, nameof(startingWeapon), startingWeapon);
         HelperUtilities.ValidateCheckEnumerableValues(this, nameof(startingWeaponsList), startingWeaponsList);
+        //health
+        if (isImmuneAfterHit)
+        {
+            HelperUtilities.ValidateCheckPositiveValue(this, nameof(hitImmunityTime), hitImmunityTime, false);
+        }
     }
 #endif
     #endregion

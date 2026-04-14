@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public Animator animator;
     [HideInInspector] public ReloadWeapon reloadWeapon;
+    [HideInInspector] public PlayerControl playerControl;
 
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
     [HideInInspector] public FireWeaponEvent fireWeaponEvent;
@@ -63,6 +64,7 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
+        playerControl = GetComponent<PlayerControl>();
 
         idleEvent = GetComponent<IdleEvent>(); 
         aimWeaponEvent = GetComponent<AimWeaponEvent>();
