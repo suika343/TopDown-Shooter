@@ -31,6 +31,7 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(ReloadWeaponEvent))]
 [RequireComponent(typeof(ReloadWeapon))]
 [RequireComponent(typeof(WeaponReloadedEvent))]
+[RequireComponent(typeof(DealContactDamage))]
 #endregion
 [DisallowMultipleComponent]
 public class Enemy : MonoBehaviour

@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 8326836325281819532}
   - component: {fileID: -3950629483658676157}
   - component: {fileID: -18014896807963948}
+  - component: {fileID: -5211470153707221205}
   m_Layer: 15
   m_Name: Enemy
   m_TagString: Untagged
@@ -530,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc78c77698806a4fbd77908790c4591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  isDamagable: 1
+  isDamageable: 1
 --- !u!114 &8326836325281819532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,6 +568,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd4d3851958802c4da887fe8d54b17e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Destroyed
+--- !u!114 &-5211470153707221205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366726310536883749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 006d7d60a61012e4b82fddcfe71b689e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DealContactDamage
+  contactDamageAmount: 10
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 132096
 --- !u!1 &1744929284956513380
 GameObject:
   m_ObjectHideFlags: 0

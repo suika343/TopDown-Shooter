@@ -72,6 +72,7 @@ public class Health : MonoBehaviour
             PostHitImmunity();
         }
 
+        /*
         if(isDamageable && isRolling)
         {
             Debug.Log("---Player dodged damage by rolling");
@@ -80,7 +81,7 @@ public class Health : MonoBehaviour
         if (!isDamageable && isRolling)
         {
             Debug.Log("---Player avoided damage due to post hit immunity");
-        }
+        }*/
     }
 
     private void PostHitImmunity()

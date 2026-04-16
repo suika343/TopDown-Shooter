@@ -32,6 +32,8 @@ using System.Collections;
 [RequireComponent(typeof(WeaponReloadedEvent))]
 [RequireComponent(typeof(FireWeapon))]
 [RequireComponent(typeof(ReloadWeapon))]
+[RequireComponent(typeof(DealContactDamage))]
+[RequireComponent(typeof(ReceiveContactDamage))]
 [DisallowMultipleComponent]
 #endregion
 public class Player : MonoBehaviour
@@ -107,7 +109,7 @@ public class Player : MonoBehaviour
 
     private void HealthEvent_OnHealthChanged(HealthEvent healthEvent, HealthEventArgs healthEventArgs)
     {
-        Debug.Log("Player Health: " + healthEventArgs.healthAmount);
+        //Debug.Log("Player Health: " + healthEventArgs.healthAmount);
 
         if (healthEventArgs.healthAmount <= 0f)
         {
