@@ -136,6 +136,10 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
         destroyedEvent.OnDestroyed -= Enemy_OnDestroyed;
         //decrement current enemy count
         currentEnemyCount--;
+
+        // score points
+        StaticEventHandler.CallPointsScoredEvent(destroyedEventArgs.points);
+
         //check if all enemies have been spawned and defeated to mark room as clear of enemies
         if (enemiesSpawned == numberOfEnemiesToSpawn && currentEnemyCount <= 0)
         {

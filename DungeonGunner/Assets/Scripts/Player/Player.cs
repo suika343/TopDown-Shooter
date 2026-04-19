@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
         if (healthEventArgs.healthAmount <= 0f)
         {
             //call player died event
-            destroyedEvent.CallOnDestroyedEvent(true);
+            destroyedEvent.CallOnDestroyedEvent(true, 0);
         }
     }
 

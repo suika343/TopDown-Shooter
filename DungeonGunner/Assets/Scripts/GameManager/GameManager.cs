@@ -33,6 +33,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     public GameState gameState;
     //[HideInInspector]
     public GameState previousGameState;
+    private long gameScore;
 
     protected override void Awake()
     {
@@ -43,6 +44,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         //Instantiate Player
         InstantiatePlayer();
+
+        gameScore = 0;
     }
 
     private void InstantiatePlayer()
@@ -60,12 +63,23 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         //Subscribe to static event handler
         StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
+
+        StaticEventHandler.OnPointsScored += StaticEventHandler_OnPointsScored;
     }
 
     private void OnDisable()
     {
         //Subscribe to static event handler
         StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
+
+        StaticEventHandler.OnPointsScored -= StaticEventHandler_OnPointsScored;
+    }
+
+    private void StaticEventHandler_OnPointsScored(PointsScoredArgs args)
+    {
+        gameScore += args.points;
+
+        StaticEventHandler.CallScoreChangedEvent(gameScore);
     }
 
     private void StaticEventHandler_OnRoomChanged(RoomChangedEventArgs roomChangedEventArgs)
