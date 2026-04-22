@@ -94,6 +94,9 @@ public class Enemy : MonoBehaviour
 
     private void EnemyDestroyed()
     {
+        //muliplier increase for each enemy kill
+        StaticEventHandler.CallMultiplierEvent(true);
+
         DestroyedEvent destroyedEvent = GetComponent<DestroyedEvent>();
         destroyedEvent.CallOnDestroyedEvent(false, health.GetStartingHealth());
     }

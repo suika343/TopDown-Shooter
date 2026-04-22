@@ -34,6 +34,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     //[HideInInspector]
     public GameState previousGameState;
     private long gameScore;
+    private int scoreMultiplier;
 
     protected override void Awake()
     {
@@ -65,6 +66,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
 
         StaticEventHandler.OnPointsScored += StaticEventHandler_OnPointsScored;
+
+        StaticEventHandler.OnMultiplier += StaticEventHandler_OnMultiplier;
     }
 
     private void OnDisable()
@@ -73,13 +76,31 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
 
         StaticEventHandler.OnPointsScored -= StaticEventHandler_OnPointsScored;
+
+        StaticEventHandler.OnMultiplier -= StaticEventHandler_OnMultiplier;
     }
 
     private void StaticEventHandler_OnPointsScored(PointsScoredArgs args)
     {
-        gameScore += args.points;
+        gameScore += args.points * scoreMultiplier;
 
-        StaticEventHandler.CallScoreChangedEvent(gameScore);
+        StaticEventHandler.CallScoreChangedEvent(gameScore, scoreMultiplier);
+    }
+
+    private void StaticEventHandler_OnMultiplier(MultiplierArgs args)
+    {
+        if(args.multiplier)
+        {
+            scoreMultiplier++;
+        }
+        else
+        {
+            scoreMultiplier = 1;
+        }
+
+        scoreMultiplier = Mathf.Clamp(scoreMultiplier, 1, 30);
+
+        StaticEventHandler.CallScoreChangedEvent(gameScore, scoreMultiplier);
     }
 
     private void StaticEventHandler_OnRoomChanged(RoomChangedEventArgs roomChangedEventArgs)
@@ -92,6 +113,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         gameState = GameState.gameStarted;
         previousGameState = GameState.gameStarted;
+        scoreMultiplier = 1;
     }
 
     // Update is called once per frame

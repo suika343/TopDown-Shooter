@@ -11,8 +11,8 @@ public class Health : MonoBehaviour
     private int startingHealth;
     private int currentHealth;
     private HealthEvent healthEvent;
-    private Player player;
-    private Enemy enemy;
+    public Player player;
+    public Enemy enemy;
 
     private Coroutine immunityCoroutine;
     private bool isImmuneAfterHit = false;
@@ -59,16 +59,15 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
-        bool isRolling = false;
+        bool isPlayerRolling = false;
 
         if (player != null)
-            isRolling = player.playerControl.isPlayerRolling;
+            isPlayerRolling = player.playerControl.isPlayerRolling;
 
-        if (isDamageable && !isRolling)
+        if (isDamageable && !isPlayerRolling)
         {
             currentHealth -= damageAmount;
             CallHealthEvent(damageAmount);
-
             PostHitImmunity();
         }
 
@@ -128,6 +127,11 @@ public class Health : MonoBehaviour
     private void CallHealthEvent(int damageAmount)
     {
         healthEvent.CallHealthChangedEvent((float)currentHealth / startingHealth, currentHealth, damageAmount);
+        if (player != null)
+        {
+            //multipler resets when player gets hit
+            StaticEventHandler.CallMultiplierEvent(false);
+        }
     }
 
     /// <summary>

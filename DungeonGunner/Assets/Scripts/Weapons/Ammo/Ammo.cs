@@ -46,6 +46,13 @@ public class Ammo : MonoBehaviour, IFireable
         ammoRange -= distanceVector.magnitude;
         if (ammoRange <= 0)
         {
+            /*ammo hit multiplier mechanic - REMOVED FOR NOW, CAN BE REWORKED LATER
+            if (ammoDetails.isPlayerAmmo)
+            {
+                //no multiplier if player ammo hits nothing
+                StaticEventHandler.CallMultiplierEvent(false);
+            }
+            */
             DisableAmmo();
         }
     }
@@ -59,18 +66,43 @@ public class Ammo : MonoBehaviour, IFireable
         DealDamage(collision);
         ShowAmmoHitEffect();
         DisableAmmo();
-
     }
 
     private void DealDamage(Collider2D collision)
     {
         Health health = collision.GetComponent<Health>();
 
-        if(health != null)
+        //ammo hit multiplier mechanic - REMOVED FOR NOW, CAN BE REWORKED LATER
+        //bool enemyHit = false;
+
+        if (health != null)
         {
             isColliding = true;
             health.TakeDamage(ammoDetails.ammoDamage);
+
+            /*ammo hit multiplier mechanic - REMOVED FOR NOW, CAN BE REWORKED LATER
+            if (health.enemy != null)
+            {
+                enemyHit = true;
+            }
+            */
         }
+
+        /* ammo hit multiplier mechanic - REMOVED FOR NOW, CAN BE REWORKED LATER
+        //if player ammo hits an enemy, call multiplier event with true,
+        //if it hits nothing or non-enemy, call multiplier event with false
+        if (ammoDetails.isPlayerAmmo)
+        {
+            if (enemyHit)
+            {
+                StaticEventHandler.CallMultiplierEvent(true);
+            }
+            else
+            {
+                StaticEventHandler.CallMultiplierEvent(false);
+            }
+        }
+        */
     }
 
     /// <summary>
