@@ -658,6 +658,11 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
             //Save gameobject reference
             room.instantiatedRoom = instantiatedRoom;
 
+            //test code
+            /*if(!room.roomNodeType.isBossRoom)
+            {
+                room.isClearOfEnemies = true;
+            }*/
         }
     }
 

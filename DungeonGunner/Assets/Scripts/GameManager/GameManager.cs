@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEditor;
+using UnityEngine.SceneManagement;
+using System.Linq.Expressions;
 
 [DisallowMultipleComponent]
 public class GameManager : SingletonMonobehaviour<GameManager>
@@ -26,6 +28,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     private Room currentRoom;
     private Room previousRoom;
+    private InstantiatedRoom bossRoom;
     private PlayerDetailsSO playerDetails;
     private Player player;
 
@@ -35,6 +38,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     public GameState previousGameState;
     private long gameScore;
     private int scoreMultiplier;
+
 
     protected override void Awake()
     {
@@ -68,6 +72,10 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         StaticEventHandler.OnPointsScored += StaticEventHandler_OnPointsScored;
 
         StaticEventHandler.OnMultiplier += StaticEventHandler_OnMultiplier;
+
+        StaticEventHandler.OnRoomEnemiesDefeated += StaticEventHandler_OnRoomEnemiesDefeated;
+
+        player.destroyedEvent.OnDestroyed += Player_OnDestroyed;
     }
 
     private void OnDisable()
@@ -78,6 +86,21 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         StaticEventHandler.OnPointsScored -= StaticEventHandler_OnPointsScored;
 
         StaticEventHandler.OnMultiplier -= StaticEventHandler_OnMultiplier;
+
+        StaticEventHandler.OnRoomEnemiesDefeated -= StaticEventHandler_OnRoomEnemiesDefeated;
+
+        player.destroyedEvent.OnDestroyed -= Player_OnDestroyed;
+    }
+
+    private void Player_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEventArgs eventArgs)
+    {
+        previousGameState = gameState;
+        gameState = GameState.gameLost;
+    }
+
+    private void StaticEventHandler_OnRoomEnemiesDefeated(RoomEnemiesDefeatedEventArgs eventArgs)
+    {
+        RoomEnemiesDefeated();
     }
 
     private void StaticEventHandler_OnPointsScored(PointsScoredArgs args)
@@ -136,7 +159,27 @@ public class GameManager : SingletonMonobehaviour<GameManager>
                 Debug.Log("Game Started");
                 PlayDungeonLevel(currentDungeonLevelListIndex);
                 gameState = GameState.playingLevel;
-                break; 
+                RoomEnemiesDefeated();
+                break;
+            case GameState.levelCompleted:
+                StartCoroutine(LevelCompleted());
+                break;
+            case GameState.gameWon:
+                if(previousGameState != GameState.gameWon)
+                {
+                    StartCoroutine(GameWon());
+                }
+                break;
+            case GameState.gameLost:
+                if (previousGameState != GameState.gameLost)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(GameLost());
+                }
+                break;
+            case GameState.restartGame:
+                RestartGame();
+                break;
         }
     }
 
@@ -162,12 +205,118 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         // Set the player position to the nearest spawn point
         player.gameObject.transform.position = HelperUtilities.GetSpawnPointNearestToPlayer(player.gameObject.transform.position);
+
+        //test code
+        //RoomEnemiesDefeated();
     }
 
     public void SetCurrentRoom(Room room)
     {
         previousRoom = currentRoom;
         currentRoom = room;
+    }
+
+    private void RoomEnemiesDefeated()
+    {
+        bool isDungeonClearOfEnemies = true;
+        bossRoom = null;
+
+        foreach(KeyValuePair<string, Room> keyValuePair in DungeonBuilder.Instance.dungeonBuilderRoomDictionary)
+        {
+            Room room = keyValuePair.Value;
+            
+            if(room.roomNodeType.isBossRoom)
+            {
+                bossRoom = room.instantiatedRoom;
+                continue;
+            }
+
+            if (!room.isClearOfEnemies)
+            {
+                isDungeonClearOfEnemies = false;
+                break;
+            }
+        }
+
+        if((isDungeonClearOfEnemies && bossRoom == null) || (isDungeonClearOfEnemies && bossRoom.room.isClearOfEnemies))
+        {   
+            if(currentDungeonLevelListIndex < dungeonLevelList.Count - 1)
+            {
+                gameState = GameState.levelCompleted;
+            }
+            else
+            {
+                gameState = GameState.gameWon;
+            }
+        }
+        else if(isDungeonClearOfEnemies)
+        {
+            gameState = GameState.bossStage;
+
+            StartCoroutine(BossStage());
+        }
+    }
+
+    private IEnumerator BossStage()
+    {
+        bossRoom.gameObject.SetActive(true);
+
+        bossRoom.UnlockDoors(0f);
+
+        yield return new WaitForSeconds(2f);
+
+        Debug.Log("Boss Stage Started");
+    }
+
+    private IEnumerator LevelCompleted()
+    {
+        gameState = GameState.playingLevel;
+
+        yield return new WaitForSeconds(2f);
+
+        Debug.Log("Level Completed - Press Enter to Continue");
+
+        while(!Input.GetKeyDown(KeyCode.Return))
+        {
+            yield return null;
+        }
+
+        yield return null;
+
+        //increase level and play next level
+        currentDungeonLevelListIndex++; 
+        PlayDungeonLevel(currentDungeonLevelListIndex);
+    }
+
+    private IEnumerator GameWon()
+    {
+        previousGameState = GameState.gameWon;
+        Debug.Log("Game Won - All Levels Completed! Press Enter to Restart Game");
+        while (!Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            yield return null;
+        }
+        yield return null;
+
+        gameState = GameState.restartGame;
+    }
+
+    private IEnumerator GameLost()
+    {
+        previousGameState = GameState.gameLost;
+        Debug.Log("Game Lost - unlucky! Press Enter to Restart Game");
+        while (!Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            yield return null;
+        }
+        yield return null;
+
+        gameState = GameState.restartGame;
+    }
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene("MainGameScene");
     }
 
     public Room GetCurrentRoom()

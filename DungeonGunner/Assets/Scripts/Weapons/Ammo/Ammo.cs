@@ -120,6 +120,8 @@ public class Ammo : MonoBehaviour, IFireable
         #region AMMO
         this.ammoDetails = ammoDetails;
 
+        isColliding = false;
+
         //Set Fire Direction
         SetFireDirection(ammoDetails, aimAngle, weaponAimAngle, weaponAimDirectionVector);
 
