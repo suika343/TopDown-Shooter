@@ -14,6 +14,11 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
     private RoomNodeTypeListSO roomNodeTypeList;
     private bool dungeonBuildSuccessful;
 
+    [Space(10)]
+    [Header("Test Code")]
+    [Tooltip("If true, the dungeon will be completed automatically for testing purposes")]
+    public bool testCodeCompleteDungeon = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -659,10 +664,13 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
             room.instantiatedRoom = instantiatedRoom;
 
             //test code
-            /*if(!room.roomNodeType.isBossRoom)
+            if (testCodeCompleteDungeon)
             {
-                room.isClearOfEnemies = true;
-            }*/
+                if (!room.roomNodeType.isBossRoom)
+                {
+                    room.isClearOfEnemies = true;
+                }
+            }
         }
     }
 

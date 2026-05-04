@@ -46,6 +46,7 @@ public class EnemyDetailsSO : ScriptableObject
     public EnemyHealthDetails[] enemyHealthDetailsArray;
     public bool isImmuneAfterHit = false;
     public float hitImmunityTime;
+    public bool isHealthBarDisplayed = false;
 
     #region VALIDATION
 #if UNITY_EDITOR

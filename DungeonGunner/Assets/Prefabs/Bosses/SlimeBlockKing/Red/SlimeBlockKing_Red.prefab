@@ -36,6 +36,14 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2554852202500606537, guid: 2118807bf88e0194ba1d7d6d8235a887, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 2554852202500606537, guid: 2118807bf88e0194ba1d7d6d8235a887, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.6
+      objectReference: {fileID: 0}
     - target: {fileID: 3974436841801528576, guid: 2118807bf88e0194ba1d7d6d8235a887, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 3

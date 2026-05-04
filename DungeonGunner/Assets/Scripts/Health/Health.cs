@@ -8,11 +8,19 @@ using Unity.VisualScripting;
 [RequireComponent(typeof(HealthEvent))]
 public class Health : MonoBehaviour
 {
+    #region HEADER GAME OBJECT REFERENCES
+    [Space(10)]
+    [Header("GAME OBJECT REFERENCES")]
+    #endregion
+    #region Tooltip
+    [Tooltip("Populate with Health Bar GameObject")]
+    #endregion
+    [SerializeField] private HealthBar healthBar;
     private int startingHealth;
     private int currentHealth;
     private HealthEvent healthEvent;
-    public Player player;
-    public Enemy enemy;
+    private Player player;
+    private Enemy enemy;
 
     private Coroutine immunityCoroutine;
     private bool isImmuneAfterHit = false;
@@ -55,6 +63,15 @@ public class Health : MonoBehaviour
                 spriteRenderer = enemy.spriteRendererArray[0];
             }
         }
+
+        if(enemy != null && enemy.enemyDetails.isHealthBarDisplayed && healthBar != null)
+        {
+            healthBar.EnableHealthBar();
+        }
+        else if(healthBar != null)
+        {
+            healthBar.DisableHealthBar();
+        }
     }
 
     public void TakeDamage(int damageAmount)
@@ -69,6 +86,11 @@ public class Health : MonoBehaviour
             currentHealth -= damageAmount;
             CallHealthEvent(damageAmount);
             PostHitImmunity();
+
+            if(healthBar != null)
+            {
+                healthBar.SetHealthBarFillAmount((float)currentHealth / startingHealth);
+            }
         }
 
         /*
