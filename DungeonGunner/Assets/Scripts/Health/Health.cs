@@ -148,10 +148,10 @@ public class Health : MonoBehaviour
 
     private void CallHealthEvent(int damageAmount)
     {
-        healthEvent.CallHealthChangedEvent((float)currentHealth / startingHealth, currentHealth, damageAmount);
+        healthEvent.CallHealthChangedEvent((float)currentHealth / (float)startingHealth, currentHealth, damageAmount);
         if (player != null)
         {
-            //multipler resets when player gets hit
+            //multiplier resets when player gets hit
             StaticEventHandler.CallMultiplierEvent(false);
         }
     }

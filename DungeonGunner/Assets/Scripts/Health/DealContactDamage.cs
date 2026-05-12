@@ -41,7 +41,9 @@ public class DealContactDamage : MonoBehaviour
 
         //check if the collision object has a ReceiveContactDamage component
         ReceiveContactDamage receiveContactDamage = collision.GetComponent<ReceiveContactDamage>();
-
+        
+        //Debug.Log(gameObject.name + " Collided with " + collision.gameObject.name);
+        
         if (receiveContactDamage != null) 
         { 
             isColliding = true;

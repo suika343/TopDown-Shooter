@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public static class Settings
 {
@@ -43,6 +44,10 @@ public static class Settings
 
     //Animator parameters - Door
     public static int open = Animator.StringToHash("open");
+
+    //Animator parameters - Destroyable Objects
+    public static int destroy = Animator.StringToHash("destroy");
+    public static string stateDestroyed = "Destroyed";
     #endregion
 
     #region CONSTANT STRINGS
