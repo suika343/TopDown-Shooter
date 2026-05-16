@@ -19,6 +19,12 @@ public class InstantiatedRoom : MonoBehaviour
     //2D array to store movement penalties from tilemaps to be used in A Star PathFinding
     [HideInInspector] public int[,] aStarMovementPenalty;
 
+    #region HEADER ENVIRONMENT GAME OBJECTS
+    [Space(10)]
+    [Header("OBJECT REFERENCES")]
+    #endregion
+    [SerializeField] private GameObject environmentGameObject;
+
     private BoxCollider2D boxCollider2D;
 
     private void Awake()
@@ -359,6 +365,18 @@ public class InstantiatedRoom : MonoBehaviour
         boxCollider2D.enabled = true;
     }
 
+    public void ActivateEnvironmentGameObjects()
+    {
+        if(environmentGameObject != null)
+            environmentGameObject.SetActive(true);  
+    }
+
+    public void DeactivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+            environmentGameObject.SetActive(false);
+    }
+
     private void DisableCollisionTilemapRenderer()
     {
         if (collisionTilemap != null)
@@ -367,4 +385,12 @@ public class InstantiatedRoom : MonoBehaviour
         }
     }
 
+    #region VALIDATION
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(environmentGameObject), environmentGameObject);
+    }
+#endif
+    #endregion
 }

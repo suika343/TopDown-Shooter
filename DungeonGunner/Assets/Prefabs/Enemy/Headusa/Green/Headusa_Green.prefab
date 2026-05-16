@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Headusa_Green
       objectReference: {fileID: 0}
+    - target: {fileID: 1101545111791694701, guid: 894ae171dff937043aeae6d2d4ddb42e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2659856968902629831, guid: 894ae171dff937043aeae6d2d4ddb42e, type: 3}
       propertyPath: movementDetails
       value: 
@@ -67,6 +71,10 @@ PrefabInstance:
     - target: {fileID: 6598500894620928220, guid: 894ae171dff937043aeae6d2d4ddb42e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7937495670293399689, guid: 894ae171dff937043aeae6d2d4ddb42e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8488182196498526759, guid: 894ae171dff937043aeae6d2d4ddb42e, type: 3}
       propertyPath: enemyDetails

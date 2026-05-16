@@ -14,12 +14,12 @@ public class HealthBar : MonoBehaviour
 
     public void EnableHealthBar()
     {
-        healthBarContainer.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void DisableHealthBar()
     {
-        healthBarContainer.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void SetHealthBarFillAmount(float fillAmount)
