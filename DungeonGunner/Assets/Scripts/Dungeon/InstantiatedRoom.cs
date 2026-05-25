@@ -33,6 +33,12 @@ public class InstantiatedRoom : MonoBehaviour
 
         //get room collider bounds from box collider 2d
         roomColliderBounds = boxCollider2D.bounds;
+
+    }
+
+    private void Start()
+    {
+        DeactivateEnvironmentGameObjects();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -367,7 +373,7 @@ public class InstantiatedRoom : MonoBehaviour
 
     public void ActivateEnvironmentGameObjects()
     {
-        if(environmentGameObject != null)
+        if(environmentGameObject != null && room.isLit)
             environmentGameObject.SetActive(true);  
     }
 
