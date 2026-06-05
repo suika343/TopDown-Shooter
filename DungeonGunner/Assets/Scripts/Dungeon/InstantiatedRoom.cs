@@ -16,8 +16,9 @@ public class InstantiatedRoom : MonoBehaviour
     [HideInInspector] public Tilemap collisionTilemap;
     [HideInInspector] public Tilemap minimapTilemap;
     [HideInInspector] public Bounds roomColliderBounds;
-    //2D array to store movement penalties from tilemaps to be used in A Star PathFinding
-    [HideInInspector] public int[,] aStarMovementPenalty;
+    [HideInInspector] public int[,] aStarMovementPenalty; //2D array to store movement penalties from tilemaps to be used in A Star PathFinding
+    [HideInInspector] public int[,] aStarItemObstacles; //2D array to store obstacles from moveable items to be used in A Star PathFinding
+    [HideInInspector] public List<MoveItem> moveableItemsList = new List<MoveItem>();
 
     #region HEADER ENVIRONMENT GAME OBJECTS
     [Space(10)]
@@ -39,6 +40,7 @@ public class InstantiatedRoom : MonoBehaviour
     private void Start()
     {
         DeactivateEnvironmentGameObjects();
+        UpdateMoveableObstacles();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -64,6 +66,7 @@ public class InstantiatedRoom : MonoBehaviour
         AddObstaclesAndPreferredPaths();
         AddDoorsToRooms();
         DisableCollisionTilemapRenderer();
+        CreateItemObstaclesArray();
     }
 
     private void PopulateTilemapVariables(GameObject roomGameObject)
@@ -390,6 +393,73 @@ public class InstantiatedRoom : MonoBehaviour
             collisionTilemap.gameObject.GetComponent<TilemapRenderer>().enabled = false;
         }
     }
+
+    /// <summary>
+    /// Create Item Obstacles Array
+    /// </summary>
+    private void CreateItemObstaclesArray()
+    {
+        aStarItemObstacles = new int[room.templateUpperBounds.x - room.templateLowerBounds.x + 1, room.templateUpperBounds.y - room.templateLowerBounds.y + 1];
+    }
+
+    /// <summary>
+    /// Initialize Item Obstacles Array with default movement penalty values from Settings
+    /// </summary>
+    private void InitializeItemObstaclesArray()
+    {
+        for (int x = 0; x < aStarItemObstacles.GetLength(0); x++)
+        {
+            for (int y = 0; y < aStarItemObstacles.GetLength(1); y++)
+            {
+                aStarItemObstacles[x, y] = Settings.defaultAStarMovementPenalty;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Update positions of moveable obstacles in the room and update the item obstacles array with their positions to be used in A Star PathFinding
+    /// </summary>
+    public void UpdateMoveableObstacles()
+    {
+        InitializeItemObstaclesArray();
+        foreach (MoveItem moveItem in moveableItemsList)
+        {
+            //get item bounds in world space and convert to cell position to get the range of cells the item is occupying
+            Vector3Int colliderBoundsMin = grid.WorldToCell(moveItem.boxCollider2D.bounds.min);
+            Vector3Int colliderBoundsMax = grid.WorldToCell(moveItem.boxCollider2D.bounds.max);
+
+            //loop through the range of cells the item is overlapping on the tilemap
+            for (int x = colliderBoundsMin.x; x < colliderBoundsMax.x; x++)
+            {
+                for (int y = colliderBoundsMin.y; y < colliderBoundsMax.y; y++)
+                {
+                    //offset with room template lower bounds to get the correct position in the item obstacles array
+                    //and set movement penalty to 0 to indicate an obstacle in A Star PathFinding
+                    aStarItemObstacles[x - room.templateLowerBounds.x, y - room.templateLowerBounds.y] = 0;
+
+                }
+            }
+        }
+    }
+
+    ///// <summary>
+    ///// Debugging method for moveable items, comment when not in use
+    ///// </summary>
+    //private void OnDrawGizmos()
+    //{
+    //    for (int x = 0; x < (room.templateUpperBounds.x - room.templateLowerBounds.x + 1); x++)
+    //    {
+    //        for (int y = 0; y < (room.templateUpperBounds.y - room.templateLowerBounds.y + 1); y++)
+    //        {
+    //            if (aStarItemObstacles[x, y] == 0)
+    //            {
+    //                Vector3 worldCellPos = grid.CellToWorld(new Vector3Int(x + room.templateLowerBounds.x, y + room.templateLowerBounds.y, 0));
+
+    //                Gizmos.DrawWireCube(new Vector3(worldCellPos.x + 0.5f, worldCellPos.y + 0.5f, 0), Vector3.one);
+    //            }
+    //        }
+    //    }
+    //}
 
     #region VALIDATION
 #if UNITY_EDITOR
