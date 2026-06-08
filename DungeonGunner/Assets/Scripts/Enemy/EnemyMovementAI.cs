@@ -20,6 +20,7 @@ public class EnemyMovementAI : MonoBehaviour
     private bool chasePlayer = true;
     //default value. set by the enemy spawner. used to spread build path load on multiple frames
     public int updateFrameNumber = 1; 
+    private List<Vector2Int> surroundingPositionList = new List<Vector2Int>();
 
     private void Awake()
     {
@@ -131,17 +132,22 @@ public class EnemyMovementAI : MonoBehaviour
         Vector2Int adjustedPlayerPosition = new Vector2Int(playerGridPosition.x - currentRoom.templateLowerBounds.x, 
                 playerGridPosition.y - currentRoom.templateLowerBounds.y);
 
-        int obstacle = currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerPosition.x, adjustedPlayerPosition.y];
+        int obstacle = Mathf.Min(currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerPosition.x, adjustedPlayerPosition.y],
+            currentRoom.instantiatedRoom.aStarItemObstacles[adjustedPlayerPosition.x, adjustedPlayerPosition.y]);
 
         //return player position if the cell is not an obstacle cell
-        if(obstacle != 0)
+        if (obstacle != 0)
         {
             return playerGridPosition;
         }
         //else, find a surrounding cell that is not an obstacle cell and return that cell as the player grid position
         else
         {
-            for(int i = -1; i <= 1; i++)
+            //clear surrounding position list
+            surroundingPositionList.Clear();
+
+            //populate surrounding position list with the 8 cells around the player (0,0) is the player's current position and is not included in the list
+            for (int i = -1; i <= 1; i++)
             {
                 for(int j = -1; j <= 1; j++)
                 {
@@ -149,23 +155,66 @@ public class EnemyMovementAI : MonoBehaviour
                     {
                         continue;
                     }
-                    try
-                    {
-                        obstacle = currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerPosition.x + i, adjustedPlayerPosition.y];
-                        if(obstacle != 0)
-                        {
-                            return new Vector3Int(playerGridPosition.x + i, playerGridPosition.y + j, 0);
-                        }
-                    }
-                    catch
-                    {
-                        continue;
-                    }
+                    surroundingPositionList.Add(new Vector2Int(i, j));
                 }
             }
 
+            //loop through all positions (8 positions)
+            for (int i = 0; i < 8; i++)
+            {
+                //generate random index
+                int index = Random.Range(0, surroundingPositionList.Count);
+
+                // see if there is an obstacle in the randomly selected position
+                try
+                {
+                    obstacle = Mathf.Min(currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerPosition.x + surroundingPositionList[index].x, 
+                        adjustedPlayerPosition.y + surroundingPositionList[index].y],
+                        currentRoom.instantiatedRoom.aStarItemObstacles[adjustedPlayerPosition.x + surroundingPositionList[index].x,
+                        adjustedPlayerPosition.y + surroundingPositionList[index].y]);
+
+                    if(obstacle != 0)
+                    {
+                        return new Vector3Int(playerGridPosition.x + surroundingPositionList[index].x, 
+                            playerGridPosition.y + surroundingPositionList[index].y, 0);
+                    }
+                }
+                catch
+                {
+                    
+                }
+
+                surroundingPositionList.RemoveAt(index);
+            }
+
+            // if no non obstacle cells found around the player after checking all 8 surrounding cells, return a random enemy spawn position
+            return (Vector3Int)currentRoom.spawnPositionArray[Random.Range(0, currentRoom.spawnPositionArray.Length)];
+
+            //for(int i = -1; i <= 1; i++)
+            //{
+            //    for(int j = -1; j <= 1; j++)
+            //    {
+            //        if(i == 0 && j == 0)
+            //        {
+            //            continue;
+            //        }
+            //        try
+            //        {
+            //            obstacle = currentRoom.instantiatedRoom.aStarMovementPenalty[adjustedPlayerPosition.x + i, adjustedPlayerPosition.y];
+            //            if(obstacle != 0)
+            //            {
+            //                return new Vector3Int(playerGridPosition.x + i, playerGridPosition.y + j, 0);
+            //            }
+            //        }
+            //        catch
+            //        {
+            //            continue;
+            //        }
+            //    }
+            //}
+
             // no other non obstacle cells found around the player, return the original player grid position (which is an obstacle cell)
-            return playerGridPosition;
+            //return playerGridPosition;
         }
     }
 
