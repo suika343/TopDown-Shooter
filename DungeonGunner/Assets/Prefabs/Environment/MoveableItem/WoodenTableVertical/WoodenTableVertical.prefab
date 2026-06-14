@@ -56,10 +56,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodenTableVertical
       objectReference: {fileID: 0}
+    - target: {fileID: 2451485153137622032, guid: 5787f6a0b7f51a249a125ba6484663f7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b066303e52b20704cbd150ed9810ece7, type: 2}
     - target: {fileID: 4808495244144811385, guid: 5787f6a0b7f51a249a125ba6484663f7, type: 3}
       propertyPath: moveSoundEffect
       value: 
       objectReference: {fileID: 11400000, guid: 4aa3fe1319f20bc4db385dac68696932, type: 2}
+    - target: {fileID: 7815781060997610463, guid: 5787f6a0b7f51a249a125ba6484663f7, type: 3}
+      propertyPath: m_Mass
+      value: 999999
+      objectReference: {fileID: 0}
     - target: {fileID: 8755955276226929879, guid: 5787f6a0b7f51a249a125ba6484663f7, type: 3}
       propertyPath: m_Size.x
       value: 1.375
@@ -111,5 +119,26 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1820759618020131721, guid: 5787f6a0b7f51a249a125ba6484663f7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2048340994998691140}
   m_SourcePrefab: {fileID: 100100000, guid: 5787f6a0b7f51a249a125ba6484663f7, type: 3}
+--- !u!1 &452064546319558349 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1820759618020131721, guid: 5787f6a0b7f51a249a125ba6484663f7, type: 3}
+  m_PrefabInstance: {fileID: 2234539089722058052}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-2048340994998691140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452064546319558349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7691c27319aacdb4b8f90575fd864416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Table
+  itemMasss: 8

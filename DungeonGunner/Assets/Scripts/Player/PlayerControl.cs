@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Text;
+using UnityEditor.Build;
 using UnityEngine;
 
 
@@ -50,6 +51,9 @@ public class PlayerControl : MonoBehaviour
         MovementInput();
         //process weapon input
         WeaponInput();
+
+        //Use Item Input
+        UseItemInput();
 
         //player roll cooldown timer
         PlayerRollCooldownTimer();
@@ -390,6 +394,27 @@ public class PlayerControl : MonoBehaviour
     {
         isPlayerMovementDisabled = true;
         player.idleEvent.CallIdleEvent();
+    }
+
+    private void UseItemInput()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            float useItemRange = 2f;
+
+            //Get Usable Items near player
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(player.GetPlayerPosition(), useItemRange);
+
+            //loop throuch detected colliders and call Use() on any IUsable items
+            foreach (Collider2D collider in colliders)
+            {
+                IUsable usableItem = collider.GetComponent<IUsable>();
+                if(usableItem != null)
+                {
+                    usableItem.Use();
+                }
+            }
+        }
     }
 
 

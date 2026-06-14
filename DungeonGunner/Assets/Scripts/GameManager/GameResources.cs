@@ -94,6 +94,10 @@ public class GameResources : MonoBehaviour
     [Tooltip("Populate with door opening sound effect")]
     #endregion
     public SoundEffectSO doorOpenCloseSoundEffect;
+    #region Tooltip
+    [Tooltip("Populate with table flipping sound effect")]
+    #endregion
+    public SoundEffectSO tableFlipSoundEffect;
 
     #region VALIDATION
 #if UNITY_EDITOR
@@ -106,6 +110,8 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(variableLitShader), variableLitShader);
         HelperUtilities.ValidateCheckNullValue(this, nameof(ammoIconPrefab), ammoIconPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(doorOpenCloseSoundEffect), doorOpenCloseSoundEffect);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(tableFlipSoundEffect), tableFlipSoundEffect);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(heartPrefab), heartPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(soundsMixerGroup), soundsMixerGroup);
         HelperUtilities.ValidateCheckEnumerableValues(this, nameof(enemyUnwalkableCollisionTilesArray), enemyUnwalkableCollisionTilesArray);
         HelperUtilities.ValidateCheckNullValue(this, nameof(preferredEnemyPathTile), preferredEnemyPathTile);
