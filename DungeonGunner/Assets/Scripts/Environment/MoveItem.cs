@@ -45,6 +45,16 @@ public class MoveItem : MonoBehaviour
 
     private void ConfineItemToRoomBounds()
     {
-        
+        Bounds itemBounds = boxCollider2D.bounds;
+        Bounds roomBounds = instantiatedRoom.roomColliderBounds;
+
+        //if item is being pushed outside the room bounds, place the item back to previous position
+        if (itemBounds.min.x <= roomBounds.min.x ||
+            itemBounds.min.y <= roomBounds.min.y ||
+            itemBounds.max.x >= roomBounds.max.x ||
+            itemBounds.max.y >= roomBounds.max.y)
+        {
+            transform.position = previousPosition;
+        }
     }
 }

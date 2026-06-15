@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d49b6a703622ee4e81bbe48adbab239, type: 3}
+  m_Name: AmmoDetails_Headusa_Pattern_Enemy
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoDetailsSO
+  ammoName: Headusa Pattern Ammo
+  isPlayerAmmo: 0
+  ammoSprite: {fileID: 21300000, guid: e36e8bbd18074d341b170885ac002038, type: 3}
+  ammoPrefabArray:
+  - {fileID: 6300320368503329250, guid: 70bc0d578a209e24899959cc32c73f96, type: 3}
+  - {fileID: 5072594506214337519, guid: 839c35d32338f6a438f3eab8ccda14b6, type: 3}
+  ammoMaterial: {fileID: 2100000, guid: 33a55999e44f4724191171c59fc64319, type: 2}
+  ammoChargeTime: 0.5
+  ammoChargeMaterial: {fileID: 2100000, guid: c64696a09f1cb1a4d9766d1fe9778ca5, type: 2}
+  ammoHitEffect: {fileID: 11400000, guid: 5f76704652066204bb0311746b12d70e, type: 2}
+  ammoDamage: 2
+  ammoSpeedMin: 7
+  ammoSpeedMax: 12
+  ammoRange: 30
+  ammoRotationSpeed: 120
+  ammoSpreadMin: 1
+  ammoSpreadMax: 2
+  ammoSpawnAmountMin: 1
+  ammoSpawnAmountMax: 1
+  ammoSpawnIntervalMin: 0
+  ammoSpawnIntervalMax: 0
+  isAmmoTrail: 0
+  ammoTrailTime: 0
+  ammoTrailMaterial: {fileID: 0}
+  ammoTrailStartWidth: 0
+  ammoTrailEndWidth: 0

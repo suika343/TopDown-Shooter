@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d49b6a703622ee4e81bbe48adbab239, type: 3}
+  m_Name: AmmoDetails_Hocus_Plasmus_Enemy
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoDetailsSO
+  ammoName: Hocus Plasmus Ammo
+  isPlayerAmmo: 0
+  ammoSprite: {fileID: 21300000, guid: e36e8bbd18074d341b170885ac002038, type: 3}
+  ammoPrefabArray:
+  - {fileID: 8591946658314757719, guid: 598cee1f6f28e6549a4cd58b5f287353, type: 3}
+  - {fileID: 1498195968290379430, guid: 598f24e749e366449b634c672ec4bb56, type: 3}
+  - {fileID: 2086397148735455271, guid: 5c89c71779a19984d88ee5a1869d04ac, type: 3}
+  ammoMaterial: {fileID: 2100000, guid: 5dceff0f64a88b949a3db290b8082010, type: 2}
+  ammoChargeTime: 0.5
+  ammoChargeMaterial: {fileID: 2100000, guid: 8906ff5d458c0ba4d8d1d0177dfd5df5, type: 2}
+  ammoHitEffect: {fileID: 11400000, guid: 9141f2613bda92a4a87be2d809fd350d, type: 2}
+  ammoDamage: 5
+  ammoSpeedMin: 7
+  ammoSpeedMax: 12
+  ammoRange: 30
+  ammoRotationSpeed: 120
+  ammoSpreadMin: 1
+  ammoSpreadMax: 2
+  ammoSpawnAmountMin: 1
+  ammoSpawnAmountMax: 1
+  ammoSpawnIntervalMin: 0
+  ammoSpawnIntervalMax: 0
+  isAmmoTrail: 0
+  ammoTrailTime: 0
+  ammoTrailMaterial: {fileID: 0}
+  ammoTrailStartWidth: 0
+  ammoTrailEndWidth: 0

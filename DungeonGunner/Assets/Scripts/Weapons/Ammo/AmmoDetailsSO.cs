@@ -88,11 +88,11 @@ public class AmmoDetailsSO : ScriptableObject
     #region Tooltip
     [Tooltip("This is the minimum amount of ammo spawned per shot. A random number is spawned between the min and max values")]
     #endregion
-    public int ammoSpawnAmountMin = 0;
+    public int ammoSpawnAmountMin = 1;
     #region Tooltip
     [Tooltip("This is the maximum amount of ammo spawned per shot. A random number is spawned between the min and max values")]
     #endregion
-    public int ammoSpawnAmountMax = 0;
+    public int ammoSpawnAmountMax = 1;
     #region Tooltip
     [Tooltip("Minimum spawn interval time (in seconds) between spawned ammo. A random value is used between the min and max values")]
     #endregion
