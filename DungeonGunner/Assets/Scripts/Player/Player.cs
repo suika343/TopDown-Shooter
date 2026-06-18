@@ -164,4 +164,15 @@ public class Player : MonoBehaviour
 
         return weapon;
     }
+
+    public bool IsWeaponHeldByPlayer(WeaponDetailsSO weaponDetailsSO)
+    {
+        foreach (Weapon weapon in weaponList)
+        {
+            if (weapon.weaponDetails == weaponDetailsSO)
+                return true;
+        }
+
+        return false;
+    }
 }

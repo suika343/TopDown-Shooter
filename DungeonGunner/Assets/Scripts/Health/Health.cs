@@ -64,11 +64,11 @@ public class Health : MonoBehaviour
             }
         }
 
-        if(enemy != null && enemy.enemyDetails.isHealthBarDisplayed && healthBar != null)
+        if (enemy != null && enemy.enemyDetails.isHealthBarDisplayed && healthBar != null)
         {
             healthBar.EnableHealthBar();
         }
-        else if(healthBar != null)
+        else if (healthBar != null)
         {
             healthBar.DisableHealthBar();
         }
@@ -87,7 +87,7 @@ public class Health : MonoBehaviour
             CallHealthEvent(damageAmount);
             PostHitImmunity();
 
-            if(healthBar != null)
+            if (healthBar != null)
             {
                 healthBar.SetHealthBarFillAmount((float)currentHealth / startingHealth);
             }
@@ -112,7 +112,7 @@ public class Health : MonoBehaviour
 
         if (isImmuneAfterHit)
         {
-            if(immunityCoroutine != null)
+            if (immunityCoroutine != null)
             {
                 StopCoroutine(immunityCoroutine);
             }
@@ -149,7 +149,7 @@ public class Health : MonoBehaviour
     private void CallHealthEvent(int damageAmount)
     {
         healthEvent.CallHealthChangedEvent((float)currentHealth / (float)startingHealth, currentHealth, damageAmount);
-        if (player != null)
+        if (player != null && damageAmount > 0)
         {
             //multiplier resets when player gets hit
             StaticEventHandler.CallMultiplierEvent(false);
@@ -173,5 +173,24 @@ public class Health : MonoBehaviour
     public int GetStartingHealth()
     {
         return startingHealth;
+    }
+
+    public void AddHealth(float healthPercentage)
+    {
+        int healthIncrease = Mathf.RoundToInt((startingHealth * healthPercentage) / 100f);
+
+        int totalHealth = currentHealth + healthIncrease;
+
+        if(totalHealth > startingHealth)
+        {
+            currentHealth = startingHealth;
+        }
+        else
+        {
+            currentHealth = totalHealth;
+        }
+
+        CallHealthEvent(0);
+
     }
 }
