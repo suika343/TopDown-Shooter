@@ -106,7 +106,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Test
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dfe1ba23c638bec49a583843476bb5c9, type: 2}
   m_sharedMaterial: {fileID: 8120199949304618070, guid: dfe1ba23c638bec49a583843476bb5c9, type: 2}
@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 3242564323240747515}
   - component: {fileID: 3083495457042924700}
   - component: {fileID: 2909381210819420462}
+  - component: {fileID: 5191452197901525321}
   m_Layer: 17
   m_Name: Chest
   m_TagString: Untagged
@@ -523,3 +524,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5191452197901525321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8069153975420775548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a1cbf22456117448e862a782ba48ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Chest
+  materializeColor: {r: 2.8002386, g: 1.8687223, b: 0.2773821, a: 0}
+  materializeTime: 1
+  itemSpawnPoint: {fileID: 7584352204966504888}
+  weaponDetails: {fileID: 0}

@@ -1349,7 +1349,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 11.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2699,7 +2699,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 11121dca52b83b742b0aa2486cc1c99a, type: 2}
   - {fileID: 11400000, guid: a7c126bfa2eab1b439afc704108f656d, type: 2}
   - {fileID: 11400000, guid: 2e5a9995ff791df4c8411b9c0f230b41, type: 2}
-  currentDungeonLevelListIndex: 1
+  currentDungeonLevelListIndex: 0
   gameState: 0
   previousGameState: 0
   testCodeCompleteDungeon: 0
