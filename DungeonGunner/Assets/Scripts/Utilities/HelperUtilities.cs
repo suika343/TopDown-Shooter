@@ -225,7 +225,7 @@ public static class HelperUtilities
 
         if (ValidateCheckPositiveValue(thisObject, fieldNameMaximum, valueToCheckMaximum, isZeroAllowed))
         {
-            error = true;
+            error = true; 
         }
 
         return error;
