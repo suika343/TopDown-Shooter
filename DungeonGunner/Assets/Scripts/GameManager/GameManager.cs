@@ -167,6 +167,11 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         }
     }
 
+    public DungeonLevelSO GetCurrentDungeonLevel()
+    {
+        return dungeonLevelList[currentDungeonLevelListIndex];
+    }
+
     private void HandleGameState()
     {
         switch(gameState)
