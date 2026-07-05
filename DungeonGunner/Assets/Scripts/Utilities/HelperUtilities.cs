@@ -23,7 +23,7 @@ public static class HelperUtilities
         mouseScreenPosition.x = Mathf.Clamp(mouseScreenPosition.x, 0, Screen.width);
         mouseScreenPosition.y = Mathf.Clamp(mouseScreenPosition.y, 0, Screen.height);
 
-        Vector3 worldPosition =  Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        Vector3 worldPosition = mainCamera.ScreenToWorldPoint(mouseScreenPosition);
         worldPosition.z = 0; // Ensure z is zero for 2D games
 
         return worldPosition;

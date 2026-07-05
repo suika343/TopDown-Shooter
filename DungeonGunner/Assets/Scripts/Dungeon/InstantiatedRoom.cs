@@ -324,6 +324,10 @@ public class InstantiatedRoom : MonoBehaviour
 
                     //Lock boss room until the dungeon is cleared
                     doorComponent.LockDoor();
+
+                    //instantiate skull icon for minimap
+                    GameObject skullIcon = Instantiate(GameResources.Instance.minimapSkullPrefab, gameObject.transform);
+                    skullIcon.transform.localPosition = door.transform.localPosition;
                 }
             }
         }

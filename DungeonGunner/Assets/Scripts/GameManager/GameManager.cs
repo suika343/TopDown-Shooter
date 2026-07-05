@@ -47,6 +47,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     public GameState previousGameState;
     private long gameScore;
     private int scoreMultiplier;
+    private bool isFading = false;
 
 
     [Space(10)]
@@ -181,6 +182,24 @@ public class GameManager : SingletonMonobehaviour<GameManager>
                 PlayDungeonLevel(currentDungeonLevelListIndex);
                 gameState = GameState.playingLevel;
                 RoomEnemiesDefeated();
+                break;
+            case GameState.playingLevel:
+                if(Input.GetKeyDown(KeyCode.Tab))
+                {
+                    DisplayDungeonOverviewMap();
+                }
+                break;
+            case GameState.dungeonOverviewMap:
+                if(Input.GetKeyUp(KeyCode.Tab))
+                {
+                    DungeonMap.Instance.ClearDungeonOverviewMap();
+                }
+                break;
+            case GameState.bossStage:
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    DisplayDungeonOverviewMap();
+                }
                 break;
             case GameState.levelCompleted:
                 StartCoroutine(LevelCompleted());
@@ -329,6 +348,14 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         }
     }
 
+    private void DisplayDungeonOverviewMap()
+    {
+        if (isFading)
+            return;
+
+        DungeonMap.Instance.DisplayDungeonOverviewMap();
+    }
+
     private IEnumerator BossStage()
     {
         bossRoom.gameObject.SetActive(true);
@@ -376,6 +403,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     private IEnumerator Fade(float startAlpha, float targetAlpha, float duration, Color fadeColor)
     {
+        isFading = true;
+
         Image image = canvasGroup.GetComponent<Image>();
         image.color = fadeColor;
 
@@ -388,6 +417,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             canvasGroup.alpha = alpha;
             yield return null;
         }
+
+        isFading = false;
     }
 
     private IEnumerator GameWon()

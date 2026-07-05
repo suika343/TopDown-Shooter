@@ -139,6 +139,12 @@ public class GameResources : MonoBehaviour
     #endregion
     public SoundEffectSO ammoPickup;
 
+    #region Header MINIMAP
+    [Space(10)]
+    [Header("MINIMAP")]
+    #endregion Header MINIMAP
+    public GameObject minimapSkullPrefab;
+
     #region VALIDATION
 #if UNITY_EDITOR
     private void OnValidate()
@@ -164,6 +170,7 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(soundsMixerGroup), soundsMixerGroup);
         HelperUtilities.ValidateCheckEnumerableValues(this, nameof(enemyUnwalkableCollisionTilesArray), enemyUnwalkableCollisionTilesArray);
         HelperUtilities.ValidateCheckNullValue(this, nameof(preferredEnemyPathTile), preferredEnemyPathTile);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(minimapSkullPrefab), minimapSkullPrefab);
     }
 #endif
 #endregion
