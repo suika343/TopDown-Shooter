@@ -29,6 +29,9 @@ public class Room
     public bool isClearOfEnemies = false;
     public bool isPreviouslyVisited = false;
 
+    public MusicTrackSO battleMusic;
+    public MusicTrackSO ambientMusic;
+
     public Room()
     {
         childRoomIDList = new List<string>();

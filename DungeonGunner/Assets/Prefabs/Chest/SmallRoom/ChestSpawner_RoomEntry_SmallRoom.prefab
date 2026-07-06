@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8024776892514591501, guid: 161baae421184874db4d7f544aa3057d, type: 3}
       propertyPath: numberOfItemsToSpawnMin
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8024776892514591501, guid: 161baae421184874db4d7f544aa3057d, type: 3}
       propertyPath: ammoItemSpawnByLevelList.Array.data[0].max

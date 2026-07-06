@@ -56,9 +56,14 @@ public static class Settings
     public static string stateDestroyed = "Destroyed";
     #endregion
 
-    #region CONSTANT STRINGS
+    #region GAMEOBJECT TAGS
     public const string playerTag = "Player";
     public const string playerWeaponTag = "playerWeapon";
+    #endregion
+
+    #region AUDIO
+    public const float musicFadeOutTime = 0.5f; //default music fade out transition
+    public const float musicFadeInTime = 0.5f; //default music fade in transition
     #endregion
 
     #region FIRING CONTROL

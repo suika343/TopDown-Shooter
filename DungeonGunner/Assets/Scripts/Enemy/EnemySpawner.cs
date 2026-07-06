@@ -28,6 +28,9 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
 
         currentRoom = roomChangedEventArgs.room;
 
+        //update music for room
+        MusicManager.Instance.PlayMusic(currentRoom.ambientMusic, 0.2f, 0.5f);
+
         // dont spawn enemies in corridors or entrance rooms
         if (currentRoom.roomNodeType.isCorridorEW || currentRoom.roomNodeType.isCorridorNS || currentRoom.roomNodeType.isEntrance)
         {
@@ -55,6 +58,9 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
 
         //lock doors
         currentRoom.instantiatedRoom.LockDoors();
+
+        //update music for room if spawning enemies
+        MusicManager.Instance.PlayMusic(currentRoom.battleMusic, 0.2f, 0.5f);
 
         SpawnEnemies();
     }
@@ -165,6 +171,9 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
 
             //unlock doors
             currentRoom.instantiatedRoom.UnlockDoors(Settings.doorUnlockDelay);
+
+            //update music for room after defeating enemies
+            MusicManager.Instance.PlayMusic(currentRoom.ambientMusic, 0.2f, 0.5f);
 
             //call static event to notify that room enemies have been defeated
             StaticEventHandler.CallRoomEnemiesDefeatedEvent(currentRoom);

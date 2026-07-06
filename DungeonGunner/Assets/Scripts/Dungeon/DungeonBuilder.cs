@@ -511,6 +511,9 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         room.childRoomIDList = CopyStringList(roomNode.childRoomNodeIDList);
         room.doorwayList = CopyDoorwayList(roomTemplate.GetDoorwayList());
 
+        room.ambientMusic = roomTemplate.ambientMusic;
+        room.battleMusic = roomTemplate.battleMusic;
+
         //Set Parent ID for room
         //If the room node has no parent room nodes then it is the entrance
         if (roomNode.parentRoomNodeIDList.Count == 0)

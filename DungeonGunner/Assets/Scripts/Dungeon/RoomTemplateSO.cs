@@ -8,10 +8,8 @@ public class RoomTemplateSO : ScriptableObject
     [HideInInspector] public string guid;
 
     #region Header ROOM PREFAB
-
     [Space(10)]
     [Header("ROOM PREFAB")]
-
     #endregion Header ROOM PREFAB
 
     #region Tooltip
@@ -23,6 +21,13 @@ public class RoomTemplateSO : ScriptableObject
     public GameObject prefab;
 
     [HideInInspector] public GameObject previousPrefab; // this is used to regenerate the guid if the so is copied and the prefab is changed
+
+    #region Header ROOM MUSIC
+    [Space(10)]
+    [Header("ROOM MUSIC")]
+    #endregion Header ROOM MUSIC
+    public MusicTrackSO battleMusic;
+    public MusicTrackSO ambientMusic;
 
 
     #region Header ROOM CONFIGURATION
@@ -163,7 +168,10 @@ public class RoomTemplateSO : ScriptableObject
 
         // Check spawn positions populated
         HelperUtilities.ValidateCheckEnumerableValues(this, nameof(spawnPositionArray), spawnPositionArray);
-        
+
+        HelperUtilities.ValidateCheckNullValue(this, nameof(battleMusic), battleMusic);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(ambientMusic), ambientMusic);
+
     }
 
 #endif

@@ -38,6 +38,15 @@ public class GameResources : MonoBehaviour
     #endregion
     public CurrentPlayerSO currentPlayer;
 
+    #region HEADER MUSIC
+    [Space(10)]
+    [Header("MUSIC")]
+    #endregion
+    public AudioMixerGroup musicMasterMixerGroup;
+    public AudioMixerSnapshot musicOnFullSnapshot;
+    public AudioMixerSnapshot musicOnLowSnapshot;
+    public AudioMixerSnapshot musicOffSnapshot;
+
     #region MATERIALS
     [Space(10)]
     [Header("Materials")]
@@ -161,6 +170,10 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(chestOpen), chestOpen);
         HelperUtilities.ValidateCheckNullValue(this, nameof(chestItemPrefab), chestItemPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(chestIconSprite), chestIconSprite);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(musicMasterMixerGroup), musicMasterMixerGroup);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(musicOnFullSnapshot), musicOnFullSnapshot);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(musicOnLowSnapshot), musicOnLowSnapshot);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(musicOffSnapshot), musicOffSnapshot);
         HelperUtilities.ValidateCheckNullValue(this, nameof(heartIconSprite), heartIconSprite);
         HelperUtilities.ValidateCheckNullValue(this, nameof(bulletIconSprite), bulletIconSprite);
         HelperUtilities.ValidateCheckNullValue(this, nameof(ammoIconPrefab), ammoIconPrefab);
