@@ -231,6 +231,29 @@ public static class HelperUtilities
         return error;
     }
 
+    public static bool ValidateCheckPositiveRange(Object thisObject, string fieldNameMinimum, int valueToCheckMinimum, string fieldNameMaximum,
+        int valueToCheckMaximum, bool isZeroAllowed)
+    {
+        bool error = false;
+        if (valueToCheckMinimum > valueToCheckMaximum)
+        {
+            Debug.Log(fieldNameMinimum + " must be less than or equal to " + fieldNameMaximum + " in the object " + thisObject.name.ToString());
+            error = true;
+        }
+
+        if (ValidateCheckPositiveValue(thisObject, fieldNameMinimum, valueToCheckMinimum, isZeroAllowed))
+        {
+            error = true;
+        }
+
+        if (ValidateCheckPositiveValue(thisObject, fieldNameMaximum, valueToCheckMaximum, isZeroAllowed))
+        {
+            error = true;
+        }
+
+        return error;
+    }
+
     /// <summary>
     /// Positive value debug check if zero is allowed, set isZeroAllowed to true. Returns true if there is an error.
     /// </summary>

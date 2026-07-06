@@ -31,6 +31,68 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
         dungeonMapCamera.gameObject.SetActive(false);
     }
 
+    private void Update()
+    {
+        //if mouse button is pressed and game state is dungeon overview map, get the room clicked to teleport to
+        if(Input.GetMouseButtonDown(0) && GameManager.Instance.gameState == GameState.dungeonOverviewMap)
+        {
+            GetRoomClicked();
+        }
+    }
+
+    private void GetRoomClicked()
+    {
+        //convert screen position to world position
+        Vector3 worldPosition = dungeonMapCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        //set z position to 0
+        worldPosition = new Vector3(worldPosition.x, worldPosition.y, 0f);
+
+        //check for colliders at cursor position
+        Collider2D[] collider2DArray = Physics2D.OverlapCircleAll(new Vector2(worldPosition.x, worldPosition.y), 1f);
+
+        //check if any of the colliders are a room
+        foreach(Collider2D collider2D in collider2DArray)
+        {
+            if(collider2D.GetComponent<InstantiatedRoom>() != null)
+            {
+                InstantiatedRoom instantiatedRoom = collider2D.GetComponent<InstantiatedRoom>();
+
+                //teleport player to room if it is clear of enemies and has been previously visited
+                if (instantiatedRoom.room.isClearOfEnemies && instantiatedRoom.room.isPreviouslyVisited)
+                {
+                    //move player to room
+                    StartCoroutine(MovePlayerToRoom(worldPosition, instantiatedRoom.room));
+                }
+            }
+        }
+    }
+
+    private IEnumerator MovePlayerToRoom(Vector3 worldPosition, Room room)
+    {
+        StaticEventHandler.CallRoomChangedEvent(room);
+
+        //faade out screen to black
+        yield return StartCoroutine(GameManager.Instance.Fade(0f, 1f, 0f, Color.black));
+
+        ClearDungeonOverviewMap();
+
+        //disable player
+        GameManager.Instance.GetPlayer().playerControl.DisablePlayer();
+
+        //Get spawn point in room nearest to player
+        Vector3 spawnPosition = HelperUtilities.GetSpawnPointNearestToPlayer(worldPosition);
+
+        //move player
+        GameManager.Instance.GetPlayer().transform.position = spawnPosition;
+
+        //fade screen back in
+        yield return StartCoroutine(GameManager.Instance.Fade(1f, 0f, 1f, Color.black));
+
+        //enable player
+        GameManager.Instance.GetPlayer().playerControl.EnablePlayer();
+    }
+
     public void DisplayDungeonOverviewMap()
     {
         //set game state

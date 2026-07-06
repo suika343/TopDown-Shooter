@@ -401,7 +401,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         PlayDungeonLevel(currentDungeonLevelListIndex);
     }
 
-    private IEnumerator Fade(float startAlpha, float targetAlpha, float duration, Color fadeColor)
+    public IEnumerator Fade(float startAlpha, float targetAlpha, float duration, Color fadeColor)
     {
         isFading = true;
 
