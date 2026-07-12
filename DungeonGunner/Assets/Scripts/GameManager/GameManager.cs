@@ -18,6 +18,11 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     [SerializeField] private TextMeshProUGUI messageTextTMP;
     [SerializeField] private CanvasGroup canvasGroup;
 
+    #region Tooltip
+    [Tooltip("Populate with PauseMenu UI GameObject")]
+    #endregion
+    [SerializeField] private GameObject pauseMenuUI;
+
     #region HEADER DUNGEON LEVELS
     [Space(10)]
     [Header("Dungeon Levels")]
@@ -188,6 +193,16 @@ public class GameManager : SingletonMonobehaviour<GameManager>
                 {
                     DisplayDungeonOverviewMap();
                 }
+                if(Input.GetKeyDown(KeyCode.Escape))
+                {
+                    PauseGameMenu();
+                }
+                break;
+            case GameState.engagingEnemies:
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    PauseGameMenu();
+                }
                 break;
             case GameState.dungeonOverviewMap:
                 if(Input.GetKeyUp(KeyCode.Tab))
@@ -199,6 +214,16 @@ public class GameManager : SingletonMonobehaviour<GameManager>
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
                     DisplayDungeonOverviewMap();
+                }
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    PauseGameMenu();
+                }
+                break;
+            case GameState.engagingBoss:
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    PauseGameMenu();
                 }
                 break;
             case GameState.levelCompleted:
@@ -215,6 +240,12 @@ public class GameManager : SingletonMonobehaviour<GameManager>
                 {
                     StopAllCoroutines();
                     StartCoroutine(GameLost());
+                }
+                break;
+            case GameState.gamePaused:
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    PauseGameMenu();
                 }
                 break;
             case GameState.restartGame:
@@ -346,6 +377,26 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
             StartCoroutine(BossStage());
         }
+    }
+
+    public void PauseGameMenu()
+    {
+        if(gameState != GameState.gamePaused)
+        {
+            previousGameState = gameState;
+            gameState = GameState.gamePaused;
+
+            GetPlayer().playerControl.DisablePlayer();
+            pauseMenuUI.SetActive(true);
+        }
+        else
+        {
+            gameState = previousGameState;
+            previousGameState = GameState.gamePaused;
+            GetPlayer().playerControl.EnablePlayer();
+            pauseMenuUI.SetActive(false);
+        }
+
     }
 
     private void DisplayDungeonOverviewMap()
@@ -504,6 +555,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         HelperUtilities.ValidateCheckEnumerableValues(this, nameof(dungeonLevelList), dungeonLevelList);
         HelperUtilities.ValidateCheckNullValue(this, nameof(messageTextTMP), messageTextTMP);
         HelperUtilities.ValidateCheckNullValue(this, nameof(canvasGroup), canvasGroup);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(pauseMenuUI), pauseMenuUI);
     }
 #endif
     #endregion

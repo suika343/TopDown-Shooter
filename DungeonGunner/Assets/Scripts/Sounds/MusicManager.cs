@@ -23,7 +23,16 @@ public class MusicManager : SingletonMonobehaviour<MusicManager>
 
     private void Start()
     {
+        if (PlayerPrefs.HasKey("musicVolume")){
+            musicVolume = PlayerPrefs.GetInt("musicVolume");
+        }
+
         SetMusicVolume(musicVolume);
+    }
+
+    private void OnDisable()
+    {
+        PlayerPrefs.SetInt("musicVolume", musicVolume);
     }
 
     public void PlayMusic(MusicTrackSO musicTrack, float fadeOutTime = Settings.musicFadeOutTime, float fadeInTime = Settings.musicFadeInTime)
@@ -73,10 +82,10 @@ public class MusicManager : SingletonMonobehaviour<MusicManager>
         yield return new WaitForSeconds(fadeInTime);
     }
 
-    private void SetMusicVolume(int volume)
+    public void SetMusicVolume(int volume)
     {
         float mutedDecibels = -80f;
-
+        musicVolume = volume;
         if (musicVolume == 0)
         {
             GameResources.Instance.musicMasterMixerGroup.audioMixer.SetFloat("musicVolume", mutedDecibels);
@@ -86,4 +95,25 @@ public class MusicManager : SingletonMonobehaviour<MusicManager>
             GameResources.Instance.musicMasterMixerGroup.audioMixer.SetFloat("musicVolume", HelperUtilities.LinearToDecibel(musicVolume));
         }
     }
+
+    public void IncreaseMusicVolume()
+    {
+        int maxMusicVolume = 20;
+
+        if (musicVolume >= maxMusicVolume) return;
+
+        musicVolume++;
+
+        SetMusicVolume(musicVolume);
+    }
+
+    public void DecreaseMusicVolume()
+    {
+        if(musicVolume <= 0) return;
+
+        musicVolume--;
+
+        SetMusicVolume(musicVolume);
+    }
+
 }
