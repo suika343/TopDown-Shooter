@@ -46,6 +46,7 @@ public class GameResources : MonoBehaviour
     public AudioMixerSnapshot musicOnFullSnapshot;
     public AudioMixerSnapshot musicOnLowSnapshot;
     public AudioMixerSnapshot musicOffSnapshot;
+    public MusicTrackSO mainMenuMusic;
 
     #region MATERIALS
     [Space(10)]
@@ -184,6 +185,7 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckEnumerableValues(this, nameof(enemyUnwalkableCollisionTilesArray), enemyUnwalkableCollisionTilesArray);
         HelperUtilities.ValidateCheckNullValue(this, nameof(preferredEnemyPathTile), preferredEnemyPathTile);
         HelperUtilities.ValidateCheckNullValue(this, nameof(minimapSkullPrefab), minimapSkullPrefab);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(mainMenuMusic), mainMenuMusic);
     }
 #endif
 #endregion

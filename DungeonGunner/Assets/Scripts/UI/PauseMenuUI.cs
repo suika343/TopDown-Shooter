@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PauseMenuUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI musicLevelText;
@@ -35,6 +36,11 @@ public class PauseMenuUI : MonoBehaviour
     private void OnDisable()
     {
         Time.timeScale = 1f;
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public void MusicSliderValue()
