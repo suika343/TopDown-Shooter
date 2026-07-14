@@ -28,6 +28,11 @@ public class GameResources : MonoBehaviour
     #endregion
     public RoomNodeTypeListSO roomNodetypeList;
 
+    #region PLAYER SELECTION
+    [Space(10)]
+    [Header("PLAYER SELECTION")]
+    #endregion
+    public GameObject playerSelectionPrefab;
 
     #region PLAYER
     [Space(10)]
@@ -37,6 +42,7 @@ public class GameResources : MonoBehaviour
     [Tooltip("The current player ScriptableObject - this is used to reference the player between the scenes")]
     #endregion
     public CurrentPlayerSO currentPlayer;
+    public List<PlayerDetailsSO> playerDetailsList;
 
     #region HEADER MUSIC
     [Space(10)]
@@ -183,9 +189,11 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(heartPrefab), heartPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(soundsMixerGroup), soundsMixerGroup);
         HelperUtilities.ValidateCheckEnumerableValues(this, nameof(enemyUnwalkableCollisionTilesArray), enemyUnwalkableCollisionTilesArray);
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(playerDetailsList), playerDetailsList);
         HelperUtilities.ValidateCheckNullValue(this, nameof(preferredEnemyPathTile), preferredEnemyPathTile);
         HelperUtilities.ValidateCheckNullValue(this, nameof(minimapSkullPrefab), minimapSkullPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(mainMenuMusic), mainMenuMusic);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(playerSelectionPrefab), playerSelectionPrefab);
     }
 #endif
 #endregion

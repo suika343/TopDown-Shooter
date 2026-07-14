@@ -6,6 +6,7 @@ public class MainMenuUI : MonoBehaviour
 {
     void Start()
     {
+        SceneManager.LoadScene("CharacterSelectorScene", LoadSceneMode.Additive);
         //play music
         MusicManager.Instance.PlayMusic(GameResources.Instance.mainMenuMusic, 0f, 2f);
     }
