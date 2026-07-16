@@ -100,6 +100,7 @@ public class GameResources : MonoBehaviour
     [Tooltip("Populate with Heart prefab")]
     #endregion
     public GameObject heartPrefab;
+    public GameObject scorePrefab;
 
     #region HEADER CHESTS
     [Space(10)]
@@ -184,6 +185,7 @@ public class GameResources : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(heartIconSprite), heartIconSprite);
         HelperUtilities.ValidateCheckNullValue(this, nameof(bulletIconSprite), bulletIconSprite);
         HelperUtilities.ValidateCheckNullValue(this, nameof(ammoIconPrefab), ammoIconPrefab);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(scorePrefab), scorePrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(doorOpenCloseSoundEffect), doorOpenCloseSoundEffect);
         HelperUtilities.ValidateCheckNullValue(this, nameof(tableFlipSoundEffect), tableFlipSoundEffect);
         HelperUtilities.ValidateCheckNullValue(this, nameof(heartPrefab), heartPrefab);

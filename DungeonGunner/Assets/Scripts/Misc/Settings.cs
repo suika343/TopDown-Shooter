@@ -92,4 +92,8 @@ public static class Settings
     #region Contact Damage
     public const float contactDamageCollisionResetDelay = 0.5f; //in seconds
     #endregion
+
+    #region SCORE
+    public const int numberOfHighScoresToSave = 100;
+    #endregion
 }

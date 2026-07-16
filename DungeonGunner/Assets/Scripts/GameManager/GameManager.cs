@@ -479,6 +479,37 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         //Disable player
         GetPlayer().playerControl.DisablePlayer();
 
+        int rank = HighScoreManager.Instance.GetRank(gameScore);
+
+        string rankText = "";
+
+        if(rank > 0 && rank <= Settings.numberOfHighScoresToSave)
+        {
+            rankText = "YOUR SCORE IS RANKED " + rank.ToString("#0") + " IN THE TOP " + Settings.numberOfHighScoresToSave.ToString("#0");
+
+            string currentPlayerName = GameResources.Instance.currentPlayer.playerName;
+
+            if(currentPlayerName == "")
+            {
+                currentPlayerName = playerDetails.playerCharacterName.ToUpper();
+            }
+
+            //Update Score
+            HighScoreManager.Instance.AddScore(new Score()
+            {
+                playerName = currentPlayerName,
+                levelDescription = "LEVEL " + (currentDungeonLevelListIndex + 1).ToString()
+                    + " " + GetCurrentDungeonLevel().levelName.ToUpper(),
+                playerScore = gameScore
+            }, rank);
+        }
+        else
+        {
+            rankText = "YOUR SCORE IS NOT RANKED IN THE TOP " + Settings.numberOfHighScoresToSave.ToString("#0");
+        }
+
+        yield return new WaitForSeconds(1f);
+
         //fade in canvas
         yield return StartCoroutine(Fade(0f, 1f, 2f, Color.black));
 
@@ -487,7 +518,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             + GameResources.Instance.currentPlayer.playerName
             + " YOU HAVE COMPLETED THE DUNGEON!", Color.white, 3f));
 
-        yield return StartCoroutine(DisplayMessageRoutine("SCORE: " + gameScore.ToString("###,###0"), Color.white, 4f));
+        yield return StartCoroutine(DisplayMessageRoutine("SCORE: " + gameScore.ToString("###,###0") + "\n\n" + rankText, Color.white, 4f));
 
         yield return StartCoroutine(DisplayMessageRoutine("PRESS RETURN TO PLAY AGAIN", Color.white, 0f));
 
@@ -500,6 +531,35 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         //Disable player
         GetPlayer().playerControl.DisablePlayer();
+
+        int rank = HighScoreManager.Instance.GetRank(gameScore);
+
+        string rankText = "";
+
+        if (rank > 0 && rank <= Settings.numberOfHighScoresToSave)
+        {
+            rankText = "YOUR SCORE IS RANKED " + rank.ToString("#0") + " IN THE TOP " + Settings.numberOfHighScoresToSave.ToString("#0");
+
+            string currentPlayerName = GameResources.Instance.currentPlayer.playerName;
+
+            if (currentPlayerName == "")
+            {
+                currentPlayerName = playerDetails.playerCharacterName.ToUpper();
+            }
+
+            //Update Score
+            HighScoreManager.Instance.AddScore(new Score()
+            {
+                playerName = currentPlayerName,
+                levelDescription = "LEVEL " + (currentDungeonLevelListIndex + 1).ToString()
+                    + " " + GetCurrentDungeonLevel().levelName.ToUpper(),
+                playerScore = gameScore
+            }, rank);
+        }
+        else
+        {
+            rankText = "YOUR SCORE IS NOT RANKED IN THE TOP " + Settings.numberOfHighScoresToSave.ToString("#0");
+        }
 
         yield return new WaitForSeconds(1f);
 
@@ -516,7 +576,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         //Display Game Lost Messages
         yield return StartCoroutine(DisplayMessageRoutine("UNLUCKY... YOU LOST", Color.white, 3f));
 
-        yield return StartCoroutine(DisplayMessageRoutine("SCORE: " + gameScore.ToString("###,###0"), Color.white, 4f));
+        yield return StartCoroutine(DisplayMessageRoutine("SCORE: " + gameScore.ToString("###,###0") + "\n\n" + rankText, Color.white, 4f));
 
         yield return StartCoroutine(DisplayMessageRoutine("PRESS RETURN TO PLAY AGAIN", Color.white, 0f));
 

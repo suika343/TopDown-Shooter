@@ -35,7 +35,7 @@ public class CharacterSelectorUI : MonoBehaviour
             PopulatePlayerDetails(playerSelectionObject.GetComponent<PlayerSelectionUI>(), playerDetailsList[i]);
         }
 
-        //playerNameInputField.text = currentPlayerSO.name;
+        playerNameInputField.text = currentPlayerSO.playerName;
 
         //Initialize the current player
         currentPlayerSO.playerDetails = playerDetailsList[selectedPlayerIndex];
